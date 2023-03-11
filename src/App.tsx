@@ -6,6 +6,7 @@ import Carousel from "components/common/Carousel";
 import Main from "components/page/Main";
 import Login from "components/page/Login";
 
+
 export default function SimpleContainer() {
   return (
     <React.Fragment>
