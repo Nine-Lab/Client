@@ -7,7 +7,6 @@ export default function SimpleContainer() {
     <React.Fragment>
       <GlobalStyle />
       <Main />
-      {/* <Component {...pageProps} /> */}
     </React.Fragment>
   );
 }
