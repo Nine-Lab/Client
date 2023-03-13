@@ -6,9 +6,8 @@ const Title = styled.h1`
   font-size: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
-  position : center;
+  position: center;
   text-align: center;
-
 `;
 
 const P1 = styled.div`
@@ -30,7 +29,7 @@ const DialogButton = styled.button`
   width: 160px;
   height: 48px;
   color: black;
-  background-color : white;
+  background-color: white;
   font-size: 1.4rem;
   font-weight: 400;
   border-radius: 4px;
