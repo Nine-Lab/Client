@@ -10,7 +10,7 @@ export default function SimpleContainer() {
       <CssBaseline />
       <Container maxWidth="lg">
         <Box sx={{ bgcolor: "#cfe8fc", height: "100vh" }} />
-        {/* <Carousel /> */}
+        <Carousel />
       </Container>
     </React.Fragment>
   );
