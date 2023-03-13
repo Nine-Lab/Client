@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import "./LoginModal.css";
- 
 interface FadeProps {
   children: React.ReactElement;
   in?: boolean;
