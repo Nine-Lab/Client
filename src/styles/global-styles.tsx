@@ -1,9 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
-interface ThemeInterface {}
-
-export const GlobalStyle = createGlobalStyle<ThemeInterface>`
+export const GlobalStyle = createGlobalStyle`
     @font-face { font-family: 'ghanachoco'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ghanachoco.woff') format('woff'); font-weight: normal; font-style: normal; }
     ${reset}
     * {
@@ -15,7 +13,8 @@ export const GlobalStyle = createGlobalStyle<ThemeInterface>`
     }
 
     html,body {
-        height: 100%;
+        height: 100%;        
+
     }
     button {
         background: none;
@@ -35,5 +34,10 @@ export const GlobalStyle = createGlobalStyle<ThemeInterface>`
     img {
         width: 100%;
         height: 100%;
+    }
+
+    /*  캐러셀 styles 많아지면 분리 예정 */
+    .slick-dots{
+        bottom:0;
     }      
 `;
