@@ -9,18 +9,18 @@ export default function SignUp() {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
 
-  const [isPwMatch, setIsPwMatch] = useState(true);
-  const [isNameValid, setIsNameValid] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPwMatch, setIsPwMatch] = useState<boolean>(true);
+  const [isNameValid, setIsNameValid] = useState<boolean>(false);
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
 
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const pwRef = useRef();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const pwRef = useRef<HTMLInputElement>(null);
 
   /** 유효성체크 메세지 */
   const InvalidMessages = {
@@ -31,7 +31,7 @@ export default function SignUp() {
 
   /** 이름 유효성 검사 */
   const checkName = useCallback(
-    (e) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       const nameRegex = /^[가-힣]{2,6}$/;
       setName(e.target.value);
       setIsNameValid(nameRegex.test(e.target.value));
@@ -41,7 +41,7 @@ export default function SignUp() {
 
   /** 이메일 유효성 검사 */
   const checkEmail = useCallback(
-    (e) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
       setEmail(e.target.value);
       setIsEmailValid(emailRegex.test(e.target.value));
@@ -49,7 +49,7 @@ export default function SignUp() {
     []
   );
 
-  /** 비밀번호 유효성 검사 */
+
   useEffect(() => {
     if (password && passwordConfirm) {
       password === passwordConfirm ? setIsPwMatch(true) : setIsPwMatch(false);

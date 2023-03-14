@@ -12,7 +12,22 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const emailRef = useRef();
+  const emailRef = useRef<HTMLInputElement>(null);
+  
+  const [emailValid, setEmailValid] = useState(false);
+  const InvalidMessages = {
+    email: "유효하지 않은 이메일 형식입니다",
+  };
+
+  const checkEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+      setEmail(e.target.value);
+      setEmailValid(emailRegex.test(e.target.value));
+    },
+    []
+  );
+
 
   return (
     <div>
@@ -29,11 +44,16 @@ export default function Login() {
                   type="text"
                   required
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={checkEmail}
                   ref={emailRef}
                   placeholder="이메일을 입력하세요"
                 />
               </S.inputWrap>
+              <S.errorMessageWrap>
+                {email
+                  ? emailValid || <div>{InvalidMessages.email}</div>
+                  : null}
+              </S.errorMessageWrap>
               <S.inputTitle style={{ marginTop: "26px" }}>
                 비밀번호
               </S.inputTitle>
@@ -46,6 +66,7 @@ export default function Login() {
                   placeholder="비밀번호를 입력하세요"
                 />
               </S.inputWrap>
+
             </S.contentWrap>
             <div>
               <S.bottomButton>
@@ -54,7 +75,7 @@ export default function Login() {
           </S.page>
         </Modal>
       )}
-      <button onClick={onClickToggleModal}>Login</button>
+      <button onClick={onClickToggleModal}>로그인</button>
     </div>
   );
 }
