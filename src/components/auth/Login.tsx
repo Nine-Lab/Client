@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import Modal from "./Modal";
 import * as S from "./Styled";
 
-export default function SignUp() {
+export default function Login() {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
