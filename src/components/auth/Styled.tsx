@@ -1,8 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 /* 모달 안 회색창 */
 export const page = styled.div`
-.page {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -17,12 +16,13 @@ export const page = styled.div`
   flex-direction: column;
 `;
 
-/* 로그인 글자 */
+/* 로그인 글 */
 export const titleWrap = styled.div`
-  margin-top: 87px;
-  font-size: 26px;
-  font-weight: bold;
-  color: #262626;
+    text-align: center;
+    margin-top: 87px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #262626;
 `;
 export const contentWrap = styled.div`
   margin-top: 26px;
@@ -44,10 +44,6 @@ export const inputWrap = styled.div`
   border: 1px solid #e2e0e0;
 `;
 
-/* .inputWrap:focus-within {
-  border: 1px solid #81c6e8;
-} */
-
 export const Input = styled.input`
   width: 100%;
   outline: none;
@@ -57,9 +53,6 @@ export const Input = styled.input`
   font-weight: 400;
 `;
 
-/* .input::placeholder {
-  color: #dadada;
-} */
 /* 확인 버튼 */
 export const bottomButton = styled.button`
   width: 100%;
@@ -72,11 +65,6 @@ export const bottomButton = styled.button`
   margin-bottom: 16px;
   cursor: pointer;
 `;
-
-/* .bottomButton:disabled {
-  background-color: #dadada;
-  color: white;
-} */
 
 /* 에러 문구 */
 export const errorMessageWrap = styled.div`
