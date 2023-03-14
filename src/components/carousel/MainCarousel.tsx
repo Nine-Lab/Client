@@ -4,6 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import CarouselSection from "./CarouselSection";
 import CarouselSection2 from "./CarouselSection2";
 import CarouselSection3 from "./CarouselSection3";
+import CarouselSection4 from "./CarouselSection4";
+
 const Carousel = () => {
   const settings = {
     dots: true,
@@ -20,6 +22,7 @@ const Carousel = () => {
         <CarouselSection />
         <CarouselSection2 />
         <CarouselSection3 />
+        <CarouselSection4 />
       </Slider>
     </div>
   );
