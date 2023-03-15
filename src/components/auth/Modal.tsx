@@ -5,7 +5,7 @@ const Title = styled.h1`
   font-size: 40px;
   margin-top: 70px;
   margin-bottom: 60px;
-  position: center;
+  position: absolute;
 `;
 
 interface ModalDefaultType {
@@ -39,7 +39,7 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
 `;
 
 const DialogBox = styled.dialog`
