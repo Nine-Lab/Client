@@ -1,11 +1,13 @@
 ---
 
-
+name:  template
+about: issue template
 title: ''
 labels: ''
 assignees: ''
 
 ---
+
 
 <!-- 
     Issue 제목은 다음과 같은 형식으로 작성합니다.
