@@ -72,3 +72,7 @@ export const errorMessageWrap = styled.div`
   color: #ef0000;
   font-size: 12px;
 `;
+
+export const LoginForm = styled.form`
+  width: 400px;
+`;
