@@ -41,7 +41,7 @@ const ModalContainer = styled.div`
   justify-content: center;
   position: absolute;
 `;
-
+ 
 const DialogBox = styled.dialog`
   width: 800px;
   height: 800px;
