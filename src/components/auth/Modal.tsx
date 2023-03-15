@@ -8,9 +8,11 @@ const Title = styled.h1`
   position: absolute;
 `;
 
+
 interface ModalDefaultType {
   onClickToggleModal: () => void;
 }
+
 
 export default function Modal({
   onClickToggleModal,
