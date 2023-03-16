@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -11,12 +11,13 @@ const Container = styled.div`
 const Title = styled.div`
     text-align: center;
     padding-top: 40px;
-    font-size: 200%;
+    margin-bottom: 20px;
+    font-size: 250%;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
 `
 
-const MapImage = styled.div`
+const GraphImage = styled.div`
     margin-top: 20px;
     margin-left: 380px;
     width: 40vw;
@@ -24,16 +25,15 @@ const MapImage = styled.div`
     background-color: #80838C;
 `
 
-const MainSlide2 = () => {
+const MainSlide1 = () => {
     return (
-        <Container>
-            <Title>
-                서울시 자치구별 주거환경 정보 제공 서비스를 통해<br />
-            다시 만나는 서울살이!
-            </Title>
-            <MapImage />
-        </Container>
-        )
-}
+    <Container>
+        <Title>
+            서울살이 얼마나 만족하시나요?
+        </Title>
+        <GraphImage />
+    </Container>
+    )
+};
 
-export default MainSlide2
+export default MainSlide1;
