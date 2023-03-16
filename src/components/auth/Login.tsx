@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import Modal from "./Modal";
 import * as S from "./Styled";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export default function Login() {
             });
             const { token } = response.data;
             document.cookie = `token=${token}`;
-            navigate("/main");
+            // navigate("/main");
         } catch (error) {
           console.log("에러")
           setErrorMessage("이메일 또는 비밀번호를 확인해주세요.")
