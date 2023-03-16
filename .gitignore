@@ -28,3 +28,4 @@ yarn-error.log*
 #Mac
 .DS_Store
 .next
+package-lock.json

@@ -1,36 +1,46 @@
 import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import { GlobalStyle } from "./styles/global-styles";
+
+import {
+  BrowserRouter,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
 
 
+// const App = lazy(() => import("./components/page/Main"));
+const App = lazy(() => import("./components/page/Main"));
+const Profile = lazy(() => import("./components/page/Profile"));
+const Hood = lazy(() => import("./components/page/Hood"));
 
-// const App = lazy(() => import("./App"));
-const Info = lazy(() => import("./components/page/Info"));
-const Leave = lazy(() => import("./components/page/Leave"));
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/info",
-//     element: <Info />,
-//   },
-//   {
-//     path: "/leave",
-//     element: <Leave />,
-//   },
-// ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/hood",
+    element: <Hood />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <App />
+
+    <GlobalStyle />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 
-// reportWebVitals();
+reportWebVitals();
 
