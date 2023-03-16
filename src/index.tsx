@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
+
 // const App = lazy(() => import("./components/page/Main"));
 const App = lazy(() => import("./components/page/Main"));
 const Profile = lazy(() => import("./components/page/Profile"));
@@ -38,5 +39,6 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 );
+
 
 reportWebVitals();
