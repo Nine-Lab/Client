@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import Modal from "./Modal";
 import * as S from "./Styled";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -14,13 +14,13 @@ export default function Login() {
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    // const [errorMessage, setErrorMessage] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     const emailRef = useRef<HTMLInputElement>(null);
 
     const [emailValid, setEmailValid] = useState<boolean>(false);
 
-    // const history = useHistory();
+    const navigate = useNavigate();
 
     const InvalidMessages = {
         email: "유효하지 않은 이메일 형식입니다",
@@ -44,7 +44,7 @@ export default function Login() {
             });
             const { token } = response.data;
             document.cookie = `token=${token}`;
-            history.push("/main");
+            navigate("/main");
         } catch (error) {
           console.log("에러")
           setErrorMessage("이메일 또는 비밀번호를 확인해주세요.")
@@ -53,7 +53,7 @@ export default function Login() {
 
     /** 로그인 제출 */
     const loginSubmit = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
+        (e: React.FormEvent) => {
             e.preventDefault();
             LoginAPI({ email, password });
             setEmail("");
@@ -69,7 +69,7 @@ export default function Login() {
                     <S.page>
                         <S.titleWrap>로그인</S.titleWrap>
                         <S.contentWrap>
-                            <S.LoginForm onSumit={loginSubmit}>
+                            <S.LoginForm onSubmit={loginSubmit}>
                                 <S.inputTitle style={{ marginTop: "26px" }}>
                                     이메일 주소
                                 </S.inputTitle>
