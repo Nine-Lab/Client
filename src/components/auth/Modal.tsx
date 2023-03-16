@@ -55,6 +55,7 @@ const DialogBox = styled.dialog`
   box-sizing: border-box;
   background-color: white;
   z-index: 10000;
+  position: absolute;
 `;
 
 const Backdrop = styled.div`
@@ -64,4 +65,5 @@ const Backdrop = styled.div`
   top: 0;
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
 `;
