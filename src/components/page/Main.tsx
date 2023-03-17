@@ -25,9 +25,9 @@ const CardContainer = styled("div")`
   margin: 0 auto;
   height: calc(100vh - 250px);
   background-color: white;
-  /* box-shadow: 0 12px 13px rgb(0 0 0 / 16%), 0 12px 13px rgb(0 0 0 / 16%);
+  box-shadow: 0 12px 13px rgb(0 0 0 / 16%), 0 12px 13px rgb(0 0 0 / 16%);
   border-radius: 7px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 `;
 
 

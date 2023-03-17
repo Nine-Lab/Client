@@ -1,122 +1,51 @@
 import React from "react";
-import styled from 'styled-components';
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Unstable_Grid2";
+import Typography from "@mui/material/Typography";
 
-const Container = styled.div`
-  height: 100px;
-`
-
-const Title = styled.h1`
-  font-size: 40px;
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 60px;
-  position : center;
+const CarouselContainer = styled("div")`
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: calc(100vh - 250px);
 `;
 
-const Box = styled.div`
-  margin-top: 25px;
-  margin-bottom: 600px;
-  margin-left : 220px;
-`;
-
-const Box1 = styled.div`
-  font-size: 15px;
-  display: block;
-  border-radius: 15px;
-  border: 2px solid;
-  border-color : #5DA7DB;
-  background-color : white;
-  width: 300px;
-  height : 470px;
-`;
-
-const SmallBox1 = styled.div`
-display: block;
-color: white;
-font-size: 18px;
-border-radius: 15px;
-border: 2px solid;
-background-color : #81C6E8;
-padding: 6px;
-margin: 5px 5px;
-margin-top: 4px;
-width: 140px;
-height : 100;
-`;
-
-const Box2 = styled.div`
-  font-size: 15px;
-  display: block;
-  border-radius: 15px;
-  border: 2px solid;
-  border-color : #5DA7DB;
-  background-color : white;
-  margin: -469px 400px;
-  width: 300px;
-  height : 470px;
-`;
-
-const SmallBox2 = styled.div`
-display: block;
-color: white;
-font-size: 18px;
-border-radius: 15px;
-border: 2px solid;
-background-color : #81C6E8;
-padding: 6px;
-margin: 5px 5px;
-margin-top: 4px;
-width: 130px;
-height : 100;
-`;
-
-const Box3 = styled.div`
-  font-size: 15px;
-  display: block;
-  border-radius: 15px;
-  border: 2px solid;
-  border-color : #5DA7DB;
-  background-color : white;
-  margin: -469px 800px;
-  width: 300px;
-  height : 470px;
-`;
-
-const SmallBox3 = styled.div`
-display: inline-block;
-color: white;
-font-size: 18px;
-border-radius: 15px;
-border: 2px solid;
-background-color : #81C6E8;
-padding: 6px;
-margin: 5px 5px;
-margin-top: 4px;
-width: 130px;
-height : 100;
-`;
-
-const Main_Slide3 = () => {
-  return <Container>
-    <Title>미세먼지, 침수 데이터</Title>
-    <Box>
-      <Box1>
-        <SmallBox1>
-          미세먼지 농도
-        </SmallBox1>
-      </Box1>
-      <Box2>
-        <SmallBox2>
-          위험 정도 1
-        </SmallBox2>
-      </Box2>
-      <Box3>
-        <SmallBox3>
-          위험 정도 2
-        </SmallBox3>
-      </Box3>      
-    </Box>
-  </Container>;
+const  MainSlide3= () => {
+  return (
+    <CarouselContainer>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={1}>
+          <Grid
+            xs={7}
+            sx={{
+              height: "450px",
+              paddingLeft: "10rem",
+            }}>
+              <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
+              생활 만족도 데이터로 살펴보는
+            </Typography>
+            <Typography align="left" variant="h3" gutterBottom sx={{ margin: "20"  }}>
+              내가 살고픈 '서울 자치구'는?
+            </Typography>
+          </Grid>
+          <Grid
+            xs={5}
+            sx={{
+              position: "absolute",
+              right: "1rem",
+              marginTop: "3rem"
+            }}>
+            <img
+              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990E304C5AD48CD833"
+              alt="그래프"
+            />
+          </Grid> 
+        </Grid>
+      </Box>
+    </CarouselContainer>
+  );
 };
 
-export default Main_Slide3;
+export default  MainSlide3;
