@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import MainCarousel from "components/carousel/MainCarousel";
 
-import {ErrorBoundary} from 'react-error-boundary'
+import ErrorBoundary from '../common/ErrorBoundary';
+import Error from '../common/Error';
 
 const BackGroundContainer = styled("div")`
   width: 100%;
@@ -29,24 +30,19 @@ const CardContainer = styled("div")`
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
 `;
 
-const ErrorFallback = () => {
-  return (<h1>렌더링 할 수 없습니다!</h1>)
-}
+
 
 const Main = () => {
   return (
-    
+    <ErrorBoundary fallback={Error}>    
       <BackGroundContainer>
         <CarouselContainer>
           <CardContainer>
-              <ErrorBoundary FallbackComponent={ErrorFallback}>        
-                <MainCarousel />
-              </ErrorBoundary>        
+              <MainCarousel />                              
           </CardContainer>
         </CarouselContainer>
       </BackGroundContainer>
-    
-    
+    </ErrorBoundary>        
   );
 };
 
