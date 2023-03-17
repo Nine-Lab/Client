@@ -41,7 +41,7 @@ const  MainSlide3= () => {
               src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990E304C5AD48CD833"
               alt="그래프"
             />
-          </Grid>
+          </Grid> 
         </Grid>
       </Box>
     </CarouselContainer>

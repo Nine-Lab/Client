@@ -48,7 +48,7 @@ const MainSlide1 = () => {
               <Typography
                 variant="subtitle1"
                 gutterBottom
-              >
+              > 
                 우리 눈에 보이지 않을 정도로 작은 먼지 입자로입자 크기에 따라
                 <br />
                 직경 10㎍이하(10㎍=0.001cm)인것을 미세먼지(PM10)라고 합니다.
