@@ -3,12 +3,10 @@ import ReactDOM from "react-dom/client";
 import { GlobalStyle } from "./styles/global-styles";
 
 import {
-  BrowserRouter,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-
 
 // const App = lazy(() => import("./components/page/Main"));
 const App = lazy(() => import("./components/page/Main"));
@@ -35,9 +33,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-
-    <GlobalStyle />
-    <RouterProvider router={router} />
+      <GlobalStyle />
+      <RouterProvider router={router} />     
   </React.StrictMode>,
 );
 

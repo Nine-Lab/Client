@@ -19,7 +19,7 @@ const Box = styled.div`
 `;
 
 const Button = styled.button`
-display: inlin-block;
+display: inline-block;
 color: white;
 font-size: 25px;
 border-radius: 15px;

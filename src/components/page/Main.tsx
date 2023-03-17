@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import MainCarousel from "components/carousel/MainCarousel";
 
+import ErrorBoundary from '../common/ErrorBoundary';
+import Error from '../common/Error';
+
 const BackGroundContainer = styled("div")`
   width: 100%;
   display: flex;
@@ -27,15 +30,19 @@ const CardContainer = styled("div")`
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
 `;
 
+
+
 const Main = () => {
   return (
-    <BackGroundContainer>
-      <CarouselContainer>
-        <CardContainer>
-          <MainCarousel />
-        </CardContainer>
-      </CarouselContainer>
-    </BackGroundContainer>
+    <ErrorBoundary fallback={Error}>    
+      <BackGroundContainer>
+        <CarouselContainer>
+          <CardContainer>
+              <MainCarousel />                              
+          </CardContainer>
+        </CarouselContainer>
+      </BackGroundContainer>
+    </ErrorBoundary>        
   );
 };
 
