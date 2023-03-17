@@ -5,13 +5,16 @@ const Title = styled.h1`
   font-size: 40px;
   margin-top: 70px;
   margin-bottom: 60px;
-  position : center;
+  position: absolute;
 `;
+
+
 interface ModalDefaultType {
   onClickToggleModal: () => void;
 }
 
-function Modal({
+
+export default function Modal({
   onClickToggleModal,
   children,
 }: PropsWithChildren<ModalDefaultType>) {
@@ -38,12 +41,12 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
 `;
 
 const DialogBox = styled.dialog`
   width: 800px;
-  height: 600px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   border: none;
@@ -52,6 +55,7 @@ const DialogBox = styled.dialog`
   box-sizing: border-box;
   background-color: white;
   z-index: 10000;
+  position: absolute;
 `;
 
 const Backdrop = styled.div`
@@ -61,6 +65,5 @@ const Backdrop = styled.div`
   top: 0;
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
 `;
-
-export default Modal;

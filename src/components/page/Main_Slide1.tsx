@@ -1,39 +1,84 @@
 import React from "react";
-import styled from 'styled-components';
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Unstable_Grid2";
+import Typography from "@mui/material/Typography";
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-`
 
-const Title = styled.div`
-    text-align: center;
-    padding-top: 40px;
-    margin-bottom: 20px;
-    font-size: 250%;
-    font-family: 'Nunito', sans-serif;
-    font-weight: bold;
-`
+const CarouselContainer = styled("div")`
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: calc(100vh - 250px);
 
-const GraphImage = styled.div`
-    margin-top: 20px;
-    margin-left: 380px;
-    width: 40vw;
-    height: 500px;
-    background-color: #80838C;
-`
+  img {
+    border-radius: 50%;
+  }
+`;
 
-const MainSlide1 = () => {
-    return (
-    <Container>
-        <Title>
-            서울살이 얼마나 만족하시나요?
-        </Title>
-        <GraphImage />
-    </Container>
-    )
+const SubInfoContainer = styled("div")`
+  display: flex;
+  position: absolute;
+`;
+
+
+const  MainSlide1= () => {
+  return (
+    <CarouselContainer>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid
+            xs={7}
+            sx={{
+              height: "450px",
+              paddingLeft: "10rem",
+            }}
+          >
+            <Typography variant="h2" gutterBottom sx={{ margin: "0" }}>
+              서울살이, <br/>
+              얼마나 만족하시나요?
+            </Typography>
+            <br />
+            <Typography
+              variant="subtitle1"
+              sx={{ marginBottom: "2rem" }}
+            >
+              <Typography
+              variant="subtitle1"
+              gutterBottom
+              sx={{ marginBottom: "2rem" }}
+            >
+              미세먼지는 인간의 수명을 단축시키고 각종 암을 유발하는 대기오염 물질입니다. 
+            </Typography>
+            </Typography>
+            <SubInfoContainer>
+                <Typography variant="h5" gutterBottom>
+                우리 눈에 보이지 않을 정도로 작은 먼지 입자로입자 크기에 따라<br />
+                직경 10㎍이하(10㎍=0.001cm)인것을 미세먼지(PM10)라고 합니다.<br />
+                미세먼지는 보통 실외 공기질에만 영향을 끼친다고 생각을 할텐데요.<br />
+                이러한 미세먼지가 실내 공기에도 영향을 끼친다는 사실, 알고 계셨나요?
+              </Typography>
+            </SubInfoContainer>
+          </Grid>
+          <Grid
+            xs={5}
+            sx={{
+              position: "absolute",
+              right: "1rem",
+            }}
+          >
+            <img
+              src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990E304C5AD48CD833"
+              alt="그래프"
+              width={500}
+              height={450}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    </CarouselContainer>
+  );
 };
 
-export default MainSlide1;
+export default  MainSlide1;
