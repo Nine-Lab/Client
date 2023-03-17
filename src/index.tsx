@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 
-
 // const App = lazy(() => import("./App"));
 const Info = lazy(() => import("./components/page/Info"));
 const Leave = lazy(() => import("./components/page/Leave"));
