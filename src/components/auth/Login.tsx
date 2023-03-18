@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import { useCallback } from "react";
 import Modal from "./Modal";
 import * as S from "./Styled";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import axios from "axios";
+// import { useHistory } from "react-router-dom";
 
 export default function Login() {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -33,33 +33,33 @@ export default function Login() {
     }, []);
 
     // 로그인 API
-    // const LoginAPI = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     e.preventDefault();
-    //     try {
-    //       console.log("성고옹")
-    //         const response = await axios.post("/api/login", {
-    //             email,
-    //             password,
-    //         });
-    //         const { token } = response.data;
-    //         document.cookie = `token=${token}`;
-    //         // navigate("/main");
-    //     } catch (error) {
-    //       console.log("에러")
-    //       setErrorMessage("이메일 또는 비밀번호를 확인해주세요.")
-    //     }
-    // };
+    const LoginAPI = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        try {
+            console.log("성고옹");
+            const response = await axios.post("/api/login", {
+                email,
+                password,
+            });
+            const { token } = response.data;
+            document.cookie = `token=${token}`;
+            // history.push("/main");
+        } catch (error) {
+            console.log("에러");
+            // setErrorMessage("이메일 또는 비밀번호를 확인해주세요.");
+        }
+    };
 
     /** 로그인 제출 */
-    // const loginSubmit = useCallback(
-    //     (e) => {
-    //         e.preventDefault();
-    //         LoginAPI({ email:string, password : string });
-    //         setEmail("");
-    //         setPassword("");
-    //     },
-    //     [email, password]
-    // );
+    const loginSubmit = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault();
+            // LoginAPI({ email, password });
+            setEmail("");
+            setPassword("");
+        },
+        [email, password],
+    );
 
     return (
         <div>
@@ -97,7 +97,7 @@ export default function Login() {
                                         type="password"
                                         required
                                         value={password}
-                                        onChange={(e) =>
+                                        onChange={e =>
                                             setPassword(e.target.value)
                                         }
                                         placeholder="비밀번호를 입력하세요"
