@@ -12,53 +12,60 @@ const CarouselContainer = styled("div")`
   height: calc(100vh - 250px);
 `;
 
-// const SubInfoContainer = styled("div")`
-//   display: flex;
-//   position: absolute;
-// `;
+const SubInfoContainer = styled("div")`
+  display: flex;
+  position: absolute;
+`;
 
-
-const  MainSlide2= () => {
+const MainSlide2 = () => {
   return (
     <CarouselContainer>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid
-            xs={7}
+            xs={8}
             sx={{
               height: "450px",
-              paddingLeft: "10rem",
-            }}>
-              <Typography sx={{ marginBottom: "1rem" }}>
-              생활 만족도 데이터로 살펴보는
+              paddingLeft: "10rem"
+            }}
+          >
+            <Typography variant="h2" gutterBottom sx={{ marginBottom: "1rem"}}>
+              서울, <br />
+              어디가 안전할까?
             </Typography>
-            <Typography variant="h3" gutterBottom sx={{ margin: "20"  }}>
-              내가 살고픈 '서울 자치구'는?
-            </Typography>
-            {/* <SubInfoContainer>
-                <Typography variant="h5" gutterBottom>
-                여러분은 지금 생활하고 있는 환경에 만족하고 계신가요?  <br />
-                생활 환경에 대해 얼마나 만족하느냐의 문제는 우리의 삶의 질 차원에서도  <br />
-                관심 가져봐야 할 문제인데요. 일반적으로 우리 생활 환경을 평가하는 기준은  <br />
-                여러가지가 있지만 침수, 미세먼지 등 환경적인 부분을 무시할 수 없습니다.  <br />
-                여러분의 생활 환경은 만족할 만한가요? <br />
-                서울시 자치구별 주거 환경 만족도를 알아봅시다.
+            <Typography variant="subtitle1" sx={{ marginBottom: "5rem" }}>
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{ marginBottom: "2rem" }}
+              >
+                예기치 못한 침수는 소중한 삶의 터전을 잃을 수 있습니다.
               </Typography>
-            </SubInfoContainer> */}
+            </Typography>
+            <SubInfoContainer>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+              >
+                홍수의 위험성에 대한 인식을 높이기 위해 홍수 조절 인프라를 구축하며
+                <br />
+                주거환경에 미치는 홍수의 영향을 완화하기 위한 다양한 조치가 시행되고 있습니다.
+                <br />
+                이러한 노력에도 불구하고, 홍수는 우리나라의 중요한 과제로 남아 있습니다.
+              </Typography>
+            </SubInfoContainer>
           </Grid>
           <Grid
             xs={5}
             sx={{
               position: "absolute",
-              right: "0rem",
-              
+              right: "1rem",
+              marginTop: "3rem"
             }}
-          >
+          > 
             <img
               src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990E304C5AD48CD833"
               alt="그래프"
-              width={500}
-              height={450}
             />
           </Grid>
         </Grid>
@@ -67,4 +74,4 @@ const  MainSlide2= () => {
   );
 };
 
-export default  MainSlide2;
+export default MainSlide2;

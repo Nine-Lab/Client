@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
+<<<<<<< HEAD
 // const App = lazy(() => import("./components/page/Main"));
 const App = lazy(() => import("./components/page/Main"));
 const Profile = lazy(() => import("./components/page/Profile"));
@@ -27,6 +28,22 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
 ]);
+=======
+// const App = lazy(() => import("./App"));
+const Info = lazy(() => import("./components/page/Info"));
+const Leave = lazy(() => import("./components/page/Leave"));
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/info",
+//     element: <Info />,
+//   },
+//   {
+//     path: "/leave",
+//     element: <Leave />,
+//   },
+// ]);
+>>>>>>> origin
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
