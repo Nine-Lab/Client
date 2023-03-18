@@ -11,13 +11,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
-import WorkIcon from "@mui/icons-material/Work";
-import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import Divider from "@mui/material/Divider";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
 const CarouselContainer = styled("div")`
     width: 100%;
     display: flex;
@@ -49,12 +47,8 @@ const MapContainer = styled("div")`
     border-radius: 7px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 `;
-const style = {
-    width: "100%",
-    maxWidth: 360,
-    bgcolor: "background.paper",
-};
 
+//  샘플 레이아웃
 const Review = () => {
     return (
         <CarouselContainer>

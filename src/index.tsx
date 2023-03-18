@@ -5,7 +5,6 @@ import { GlobalStyle } from "./styles/global-styles";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
-// const App = lazy(() => import("./components/page/Main"));
 const App = lazy(() => import("./components/page/Main"));
 const Profile = lazy(() => import("./components/page/Profile"));
 const Hood = lazy(() => import("./components/page/Hood"));
@@ -29,22 +28,6 @@ const router = createBrowserRouter([
         element: <Review />,
     },
 ]);
-=======
-// const App = lazy(() => import("./App"));
-const Info = lazy(() => import("./components/page/Info"));
-const Leave = lazy(() => import("./components/page/Leave"));
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/info",
-//     element: <Info />,
-//   },
-//   {
-//     path: "/leave",
-//     element: <Leave />,
-//   },
-// ]);
->>>>>>> origin
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
