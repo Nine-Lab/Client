@@ -19,7 +19,7 @@ export default function Login() {
 
     const [emailValid, setEmailValid] = useState<boolean>(false);
 
-    // const history = useHistory();
+    // const navigate = useNavigate();
 
     const InvalidMessages = {
         email: "유효하지 않은 이메일 형식입니다",

@@ -1,5 +1,5 @@
 import React from "react";
-import MainSlide2 from "components/page/Main_Slide2";
+import MainSlide2 from "./Main_Slide2";
 
 const CarouselSection3 = () => {
   return <div>

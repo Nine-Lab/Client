@@ -1,7 +1,8 @@
-import React from "react";
+import * as React from "react";
 
-const App = () => {
-    return <div></div>;
-};
+export default function App() {
+  return <React.Fragment></React.Fragment>;
+}
 
-export default App;
+
+  

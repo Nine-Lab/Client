@@ -4,6 +4,9 @@ import MainCarousel from "components/carousel/MainCarousel";
 import Hood from "../page/Hood";
 import Review from "./Review";
 
+import ErrorBoundary from "../common/ErrorBoundary";
+import Error from "../common/Error";
+
 const BackGroundContainer = styled("div")`
     width: 100%;
     display: flex;
@@ -36,15 +39,17 @@ const CardContainer = styled("div")`
 
 const Main = () => {
     return (
-        <BackGroundContainer>
-            <CarouselContainer>
-                <CardContainer>
-                    <MainCarousel />
-                </CardContainer>
-            </CarouselContainer>
-            {/* <Hood /> */}
-            {/* <Review /> */}
-        </BackGroundContainer>
+        <ErrorBoundary fallback={Error}>
+            <BackGroundContainer>
+                <CarouselContainer>
+                    <CardContainer>
+                        <MainCarousel />
+                    </CardContainer>
+                </CarouselContainer>
+                {/* <Hood /> */}
+                {/* <Review /> */}
+            </BackGroundContainer>
+        </ErrorBoundary>
     );
 };
 
