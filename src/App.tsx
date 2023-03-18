@@ -1,11 +1,7 @@
-import * as React from "react";
-import { GlobalStyle } from "./styles/global-styles";
+import React from "react";
 
+const App = () => {
+    return <div></div>;
+};
 
-export default function App() {
-  return <React.Fragment></React.Fragment>;
-
-
-
-
-    
+export default App;

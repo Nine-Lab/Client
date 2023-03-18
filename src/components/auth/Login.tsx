@@ -1,10 +1,9 @@
-
 import React, { useRef, useState } from "react";
 import { useCallback } from "react";
 import Modal from "./Modal";
 import * as S from "./Styled";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 export default function Login() {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -37,17 +36,17 @@ export default function Login() {
     const LoginAPI = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         try {
-          console.log("성고옹")
+            console.log("성고옹");
             const response = await axios.post("/api/login", {
                 email,
                 password,
             });
             const { token } = response.data;
             document.cookie = `token=${token}`;
-            history.push("/main");
+            // history.push("/main");
         } catch (error) {
-          console.log("에러")
-          setErrorMessage("이메일 또는 비밀번호를 확인해주세요.")
+            console.log("에러");
+            // setErrorMessage("이메일 또는 비밀번호를 확인해주세요.");
         }
     };
 
@@ -55,11 +54,11 @@ export default function Login() {
     const loginSubmit = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             e.preventDefault();
-            LoginAPI({ email, password });
+            // LoginAPI({ email, password });
             setEmail("");
             setPassword("");
         },
-        [email, password]
+        [email, password],
     );
 
     return (
@@ -69,7 +68,7 @@ export default function Login() {
                     <S.page>
                         <S.titleWrap>로그인</S.titleWrap>
                         <S.contentWrap>
-                            <S.LoginForm onSumit={loginSubmit}>
+                            <S.LoginForm>
                                 <S.inputTitle style={{ marginTop: "26px" }}>
                                     이메일 주소
                                 </S.inputTitle>
@@ -98,7 +97,7 @@ export default function Login() {
                                         type="password"
                                         required
                                         value={password}
-                                        onChange={(e) =>
+                                        onChange={e =>
                                             setPassword(e.target.value)
                                         }
                                         placeholder="비밀번호를 입력하세요"
