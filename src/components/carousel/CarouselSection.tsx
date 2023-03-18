@@ -12,6 +12,8 @@ const CarouselContainer = styled("div")`
     display: flex;
     align-items: center;
     height: calc(100vh - 250px);
+    position: absolute;
+    z-index: 1;
 
     img {
         border-radius: 50%;
@@ -49,7 +51,9 @@ const CarouselSection = () => {
                         >
                             서울시 자치구별 주거환경 정보를 찾아보세요!
                         </Typography>
-                        <Button variant="contained">시작하기</Button>
+                        <Link to="/hood">
+                            <Button variant="contained">시작하기</Button>
+                        </Link>
                         <SubInfoContainer
                             sx={{ width: "40%", paddingTop: "2.5rem" }}
                         >

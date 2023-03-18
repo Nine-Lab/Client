@@ -48,12 +48,6 @@ const style = {
     bgcolor: "background.paper",
 };
 const Hood = () => {
-    // const [age, setAge] = React.useState("");
-
-    // const handleChange = (event: SelectChangeEvent) => {
-    //     // setAge(event.target.value as string);
-    // };
-
     return (
         <CarouselContainer>
             <InfoContainer>
