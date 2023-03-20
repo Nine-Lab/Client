@@ -54,7 +54,6 @@ const CarouselSection = () => {
                 이러한 미세먼지가 실내 공기에도 영향을 끼친다는 사실, 알고 계셨나요? 
                 </Typography>
                 <Typography variant="h5" gutterBottom>
-                  <br />
                 침수
                 <Typography variant="caption" display="block" gutterBottom>
                 홍수는 우리나라에서 중대한 자연재해이며, 도시의 침수는 주거환경에 큰 영향을 미치고 있습니다. 

@@ -2,8 +2,9 @@ import React, { useRef, useState } from "react";
 import { useCallback } from "react";
 import Modal from "./Modal";
 import * as S from "./Styled";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie"
+import { api } from "../../utils/api"
 
 export default function Login() {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -13,63 +14,42 @@ export default function Login() {
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    // const [errorMessage, setErrorMessage] = useState<string>("");
-
     const emailRef = useRef<HTMLInputElement>(null);
 
-    const [emailValid, setEmailValid] = useState<boolean>(false);
+    //****** 로그인 API
+    const loginAPI = useCallback(async (email: string, password: string) => {
+        try {
+                console.log("성공")
+                const response = await api.post("api//users/login", { email, password });
+                const { token } = response.data
+                Cookies.set("token", token, { httpOnly: true });
+                setOpenModal(false)
+            } catch (err) {
+                console.log("실패");
+                alert("이메일 또는 비밀번호를 확인해주세요.")
+            }
+        }, []);
 
-    // const navigate = useNavigate();
-
-    const InvalidMessages = {
-        email: "유효하지 않은 이메일 형식입니다",
-    };
-
-    const checkEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const emailRegex =
-            /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-        setEmail(e.target.value);
-        setEmailValid(emailRegex.test(e.target.value));
-    }, []);
-
-    // 로그인 API
-    // const LoginAPI = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     e.preventDefault();
-    //     try {
-    //       console.log("성고옹")
-    //         const response = await axios.post("/api/login", {
-    //             email,
-    //             password,
-    //         });
-    //         const { token } = response.data;
-    //         document.cookie = `token=${token}`;
-    //         // navigate("/main");
-    //     } catch (error) {
-    //       console.log("에러")
-    //       setErrorMessage("이메일 또는 비밀번호를 확인해주세요.")
-    //     }
-    // };
-
-    /** 로그인 제출 */
-    // const loginSubmit = useCallback(
-    //     (e) => {
-    //         e.preventDefault();
-    //         LoginAPI({ email:string, password : string });
-    //         setEmail("");
-    //         setPassword("");
-    //     },
-    //     [email, password]
-    // );
+    const loginSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        loginAPI(email, password);
+        setEmail("");
+        setPassword("");
+        },
+        [email, password, loginAPI]
+    );
+    //*************
 
     return (
-        <div>
+        <form onSubmit={loginSubmit}>
+            <div>
             {isOpenModal && (
                 <Modal onClickToggleModal={onClickToggleModal}>
                     <S.page>
                         <S.titleWrap>로그인</S.titleWrap>
                         <S.contentWrap>
                             <S.LoginForm>
-                                <S.inputTitle style={{ marginTop: "26px" }}>
+                                <S.inputTitle>
                                     이메일 주소
                                 </S.inputTitle>
                                 <S.inputWrap>
@@ -77,19 +57,19 @@ export default function Login() {
                                         type="text"
                                         required
                                         value={email}
-                                        onChange={checkEmail}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         ref={emailRef}
                                         placeholder="이메일을 입력하세요"
                                     />
                                 </S.inputWrap>
-                                <S.errorMessageWrap>
+                                {/* <S.errorMessageWrap>
                                     {email
                                         ? emailValid || (
-                                              <div>{InvalidMessages.email}</div>
-                                          )
+                                            <div>{InvalidMessages.email}</div>
+                                        )
                                         : null}
-                                </S.errorMessageWrap>
-                                <S.inputTitle style={{ marginTop: "26px" }}>
+                                </S.errorMessageWrap> */}
+                                <S.inputTitle>
                                     비밀번호
                                 </S.inputTitle>
                                 <S.inputWrap>
@@ -97,23 +77,20 @@ export default function Login() {
                                         type="password"
                                         required
                                         value={password}
-                                        onChange={(e) =>
-                                            setPassword(e.target.value)
-                                        }
+                                        onChange={(e) =>setPassword(e.target.value)}
                                         placeholder="비밀번호를 입력하세요"
                                     />
                                 </S.inputWrap>
                             </S.LoginForm>
                         </S.contentWrap>
                         <div>
-                            <S.bottomButton type="submit">
-                                로그인
-                            </S.bottomButton>
+                            <S.bottomButton type="submit">로그인</S.bottomButton>
                         </div>
                     </S.page>
                 </Modal>
             )}
-            <button onClick={onClickToggleModal}>로그인</button>
+            <S.headerButton onClick={onClickToggleModal}>Login</S.headerButton>
         </div>
+        </form>
     );
 }
