@@ -1,3 +1,4 @@
+//오피스아워 반영
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 
@@ -8,11 +9,9 @@ const Title = styled.h1`
   position: absolute;
 `;
 
-
 interface ModalDefaultType {
   onClickToggleModal: () => void;
 }
-
 
 export default function Modal({
   onClickToggleModal,
@@ -24,8 +23,6 @@ export default function Modal({
       <DialogBox>{children}</DialogBox>
       <Backdrop
         onClick={(e: React.MouseEvent) => {
-          e.preventDefault();
-
           if (onClickToggleModal) {
             onClickToggleModal();
           }
