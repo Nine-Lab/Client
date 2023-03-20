@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { GlobalStyle } from "./styles/global-styles";
 
@@ -8,11 +8,12 @@ import {
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
-<<<<<<< HEAD
-// const App = lazy(() => import("./components/page/Main"));
 const App = lazy(() => import("./components/page/Main"));
 const Profile = lazy(() => import("./components/page/Profile"));
 const Hood = lazy(() => import("./components/page/Hood"));
+const Review = lazy(() => import("./components/page/Review"));
+const SignUp = lazy(() => import("./components/auth/SignUp"));
+const Login = lazy(() => import("./components/auth/Login"));
 
 const router = createBrowserRouter([
   {
@@ -27,31 +28,29 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <Profile />,
   },
+  {
+    path: "/Review",
+    element: <Review />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
 ]);
-=======
-// const App = lazy(() => import("./App"));
-const Info = lazy(() => import("./components/page/Info"));
-const Leave = lazy(() => import("./components/page/Leave"));
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/info",
-//     element: <Info />,
-//   },
-//   {
-//     path: "/leave",
-//     element: <Leave />,
-//   },
-// ]);
->>>>>>> origin
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-      <GlobalStyle />
-      <RouterProvider router={router} />     
+    <Suspense fallback={<div>loading...</div>}>
+    <GlobalStyle />
+    </Suspense>
+      <RouterProvider router={router} />
   </React.StrictMode>,
 );
 

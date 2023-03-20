@@ -1,4 +1,4 @@
-// 추가
+// 추가 //
 import styled from 'styled-components';
 
 /* 모달 안 회색창 */
@@ -61,6 +61,16 @@ export const bottomButton = styled.button`
   border: none;
   font-weight: bold;
   border-radius: 64px;
+  background-color: #81c6e8;
+  color: white;
+  margin-bottom: 16px;
+  cursor: pointer;
+`;
+export const headerButton = styled.button`
+  height: 48px;
+  border: none;
+  font-weight: bold;
+  /* border-radius: 64px; */
   background-color: #81c6e8;
   color: white;
   margin-bottom: 16px;
