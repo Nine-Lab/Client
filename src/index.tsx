@@ -1,3 +1,4 @@
+//오피스아워 반영
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { GlobalStyle } from "./styles/global-styles";

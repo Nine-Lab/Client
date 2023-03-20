@@ -1,4 +1,4 @@
-// 추가 //
+// 버튼추가
 import styled from 'styled-components';
 
 /* 모달 안 회색창 */
