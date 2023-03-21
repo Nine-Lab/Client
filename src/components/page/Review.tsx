@@ -304,7 +304,7 @@ const Review = () => {
                                     <S.reviewInput type='text' required placeholder="별점을 입력하세요"/>
                                 </S.reviewInputWrap>
                                 <S.satisfactionLevelGuide>
-                                    <div>※매우 불만족: 1점, 조금 불만족: 2점, 보통: 3점, 조금 좋음: 4점, 약간 좋음: 5점</div>
+                                    <div>※매우 불만족: 1점, 조금 불만족: 2점, 보통: 3점, 조금 좋음: 4점, 매우 좋음: 5점</div>
                                 </S.satisfactionLevelGuide>
                                 <S.inputWrap>
                                     <S.reviewInput type='text' required value={userId} onChange={checkUserId}/>
