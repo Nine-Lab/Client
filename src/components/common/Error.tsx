@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const ErrorDialog = styled.h1`
     font-weight: bold;
     text-align: center;
+    font-family: 'Roboto', 'Nunito', sans-serif;
 `
 
 const Error = () => {
