@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useRef} from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
