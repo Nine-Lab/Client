@@ -1,16 +1,13 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import Modal from "./Modal";
 import * as S from "./Styled";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
+import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -23,6 +20,8 @@ export default function SignUp() {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
 
   const InvalidMessages = {
     name: "2-6글자 한글로 입력해주세요",
@@ -51,17 +50,17 @@ export default function SignUp() {
 
   const signupAPI = useCallback(async () => {
     try {
-      // console.log("성공");
+      console.log("성공");
       const response = await axios.post(
         "https://shiny-shea-devhwann.koyeb.app/api/users/register",
         { name, email, password }
       );
       const { token } = response.data;
       Cookies.set("token", token, { httpOnly: true });
-      setOpenModal(false)
       alert("회원가입이 완료되었습니다.");
+      navigate("/");
     } catch (err) {
-      // console.log("실패");
+      console.log("실패");
       alert("이미 사용중인 이메일입니다.");
     }
   }, [name, email, password]);
@@ -81,10 +80,8 @@ export default function SignUp() {
 
   return (
     <ErrorBoundary fallback={Error}>
-    <div>
+    <Box>
       <form onSubmit={signupSubmit}>
-        {isOpenModal && (
-          <Modal onClickToggleModal={onClickToggleModal}>
             <S.page>
               <S.titleWrap>회원가입</S.titleWrap>
               <S.contentWrap>
@@ -104,7 +101,6 @@ export default function SignUp() {
                     ? isNameValid || <div>{InvalidMessages.name}</div>
                     : null}
                 </S.errorMessageWrap>
-
                 <S.inputTitle style={{ marginTop: "26px" }}>
                   이메일 주소
                 </S.inputTitle>
@@ -155,14 +151,11 @@ export default function SignUp() {
                 )}
               </S.contentWrap>
               <div>
-                <S.bottomButton>가입하기</S.bottomButton>
+                <S.bottomButton type="submit">가입하기</S.bottomButton>
               </div>
             </S.page>
-          </Modal>
-        )}
       </form>
-      <S.headerButton onClick={onClickToggleModal}>SignUp</S.headerButton>
-    </div>
+    </Box>
     </ErrorBoundary>
   );
 }

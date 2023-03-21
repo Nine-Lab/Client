@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // import { Link } from 'react-router-dom';
 // import Info from "components/page/Info";
 // import Leave from "components/page/Leave";
+import Button from '@mui/material/Button';
 
 const ButtonDiv = styled.div`
   border: 1px solid;
@@ -15,19 +16,24 @@ const ButtonDiv = styled.div`
   border-radius: 5px;
 `;
 
-const Admin = () => {
+const MyPage = () => {
     return (
         <div className="main-noSide">
-      {/* <Link to="/info"> */}
-        <ButtonDiv>개인 정보 수정</ButtonDiv>
-      {/* </Link> */}
-      {/* <Link to="/leave"> */}
-        <ButtonDiv>탈퇴하기</ButtonDiv>
+        <ButtonDiv>
+          <Button href="/info">
+            개인정보수정
+          </Button>
+        </ButtonDiv>
+
+        <ButtonDiv>
+          <Button href="/leave">
+            탈퇴하기
+          </Button>
+          </ButtonDiv>
       {/* </Link> */}
     </div>
         
 );
   };
   
-  export default Admin;
-  
+  export default MyPage;

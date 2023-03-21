@@ -1,115 +1,113 @@
-import { useState, useCallback } from "react";
-import styled from "styled-components";
+import React, { useRef, useState, useCallback, useEffect } from "react";
+import * as S from "../auth/Styled";
+import ErrorBoundary from "../common/ErrorBoundary";
+import Error from "../common/Error";
 
-const Title = styled.h1`
-  font-size: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  position: center;
-  text-align: center;
-`;
+export default function Info() {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [checkPassword, setCheckPassword] = useState<string>("");
 
-const P1 = styled.div`
-  font-size: 15px;
-  margin: 0px 40px;
-`;
+  const [isPwMatch, setIsPwMatch] = useState(true);
+  const [isNameValid, setIsNameValid] = useState<boolean>(false);
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const pwRef = useRef<HTMLInputElement>(null);
 
-const P2 = styled.div`
-  font-size: 15px;
-  margin: 0px 40px;
-`;
+  const InvalidMessages = {
+    name: "2-6글자 한글로 입력해주세요",
+    email: "유효하지 않은 이메일 형식입니다",
+    password: "비밀번호가 일치하지 않습니다"
+  };
 
-const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-`;
+  //이름 유효성 검사
+  const checkName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const nameRegex = /^[가-힣]{2,6}$/;
+    setName(e.target.value);
+    setIsNameValid(nameRegex.test(e.target.value));
+  }, []);
 
-// const DialogButton = styled.button`
-//   width: 160px;
-//   height: 48px;
-//   color: black;
-//   background-color: white;
-//   font-size: 1.4rem;
-//   font-weight: 400;
-//   border-radius: 4px;
-//   border: none;
-//   cursor: pointer;
-//   margin: 0px 1118px;
+  // 이메일 유효성 검사
+  const checkEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    setEmail(e.target.value);
+    setIsEmailValid(emailRegex.test(e.target.value));
+  }, []);
 
-//   &:hover {
-//     transform: translateY(-1px);
-//   }
-// `;
+  useEffect(() => {
+    if (password && checkPassword) {
+      password === checkPassword ? setIsPwMatch(true) : setIsPwMatch(false);
+    }
+  }, [password, checkPassword]);
 
-const StyledInput = styled.input`
-  margin: 1.2em auto;
-  display: block;
-  font-size: 20px;
-  border: 1px solid black;
-  width: 90%;
-  height: 2.5em;
-  border-radius: 5px;
-  padding-left: 1em;
-  margin-top: 1px;
-  margin-bottom: 20px;
-`;
-
-const Button1 = styled.button`
-  width: 100%;
-  border: none;
-  border-radius: 6px;
-  border-style: solid;
-  border-width: 1px;
-  padding: 12px 0px;
-  text-indent: 6px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
-  background-color: #81c6e8;
-  color: white;
-`;
-
-function Info() {
   return (
-    <Main>
-          <Title>개인정보 수정</Title>
-          <P1>이름</P1>
-          <StyledInput
-            type="text"
-            id="name"
-            name="name"
-            className="TextInput"
-            placeholder="이름을 입력해주세요"
-          />
-          <P1>Email</P1>
-          <StyledInput
-            type="text"
-            id="useremail"
-            name="useremail"
-            className="TextInput"
-            placeholder="이메일을 입력해주세요."
-          />
-          <P2>비밀번호</P2>
-          <StyledInput
-            type="password"
-            id="password"
-            name="password"
-            className="TextInput"
-            placeholder="비밀번호를 입력해주세요."
-          />
-          <P2>비밀번호 재확인</P2>
-          <StyledInput
-            type="password"
-            id="password"
-            name="password"
-            className="TextInput"
-            placeholder="비밀번호를 한번 더 입력해주세요."
-          />
-          <Button1 type="button" className="btn">
-            수정 완료
-          </Button1>
-    </Main>
+    <ErrorBoundary fallback={Error}>
+    <form>
+      <S.page>
+        <S.titleWrap>개인정보수정</S.titleWrap>
+        <S.contentWrap>
+          <S.inputTitle>이름</S.inputTitle>
+          <S.inputWrap>
+            <S.Input
+              type="text"
+              required
+              value={name}
+              onChange={checkName}
+              ref={nameRef}
+              placeholder="이름을 입력하세요(2 - 6글자)"
+            />
+          </S.inputWrap>
+          <S.errorMessageWrap>
+            {name ? isNameValid || <div>{InvalidMessages.name}</div> : null}
+          </S.errorMessageWrap>
+          <S.inputTitle style={{ marginTop: "26px" }}>이메일 주소</S.inputTitle>
+          <S.inputWrap>
+            <S.Input
+              type="text"
+              required
+              value={email}
+              onChange={checkEmail}
+              ref={emailRef}
+              placeholder="이메일을 입력하세요"
+            />
+          </S.inputWrap>
+          <S.errorMessageWrap>
+            {email ? isEmailValid || <div>{InvalidMessages.email}</div> : null}
+          </S.errorMessageWrap>
+          <S.inputTitle style={{ marginTop: "26px" }}>비밀번호</S.inputTitle>
+          <S.inputWrap>
+            <S.Input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="비밀번호를 입력하세요"
+            />
+          </S.inputWrap>
+          <S.inputTitle style={{ marginTop: "26px" }}>
+            비밀번호 재확인
+          </S.inputTitle>
+          <S.inputWrap>
+            <S.Input
+              type="password"
+              required
+              value={checkPassword}
+              onChange={(e) => setCheckPassword(e.target.value)}
+              ref={pwRef}
+              placeholder="비밀번호를 한 번 더 입력하세요"
+            />
+          </S.inputWrap>
+          {isPwMatch || (
+            <S.errorMessageWrap>{InvalidMessages.password}</S.errorMessageWrap>
+          )}
+        </S.contentWrap>
+        <div>
+          <S.bottomButton type="submit">수정하기</S.bottomButton>
+        </div>
+      </S.page>
+    </form>
+    </ErrorBoundary>
   );
 }
-
-export default Info;

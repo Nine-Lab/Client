@@ -3,17 +3,18 @@ import styled from 'styled-components';
 /* 모달 안 회색창 */
 export const page = styled.div`
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 10%;
+  bottom: 10%;
   width: 100%;
   max-width: 500px;
-  padding: 0 20px;
+  padding: 0 50px;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: #F7F7F7;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  /* border: 2px solid #000 */
 `;
 
 /* 로그인 글 */

@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { useCallback } from "react";
-import Modal from "./Modal";
 import * as S from "./Styled";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const navigate = useNavigate();
 
   //****** 로그인 API
   const loginAPI = useCallback(async (email: string, password: string) => {
@@ -26,7 +24,7 @@ export default function Login() {
       );
       const { token } = response.data;
       Cookies.set("token", token, { httpOnly: true });
-      setOpenModal(false);
+      navigate("/")
     } catch (err) {
       console.log("실패");
       alert("이메일 또는 비밀번호를 확인해주세요.");
@@ -48,13 +46,11 @@ export default function Login() {
     <ErrorBoundary fallback={Error}>
     <form onSubmit={loginSubmit}>
       <div>
-        {isOpenModal && (
-          <Modal onClickToggleModal={onClickToggleModal}>
             <S.page>
               <S.titleWrap>로그인</S.titleWrap>
               <S.contentWrap>
                 <S.LoginForm>
-                  <S.inputTitle>
+                  <S.inputTitle >
                     이메일 주소
                   </S.inputTitle>
                   <S.inputWrap>
@@ -66,7 +62,7 @@ export default function Login() {
                       placeholder="이메일을 입력하세요"
                     />
                   </S.inputWrap>
-                  <S.inputTitle>
+                  <S.inputTitle style={{ marginTop: "26px" }}>
                     비밀번호
                   </S.inputTitle>
                   <S.inputWrap>
@@ -84,9 +80,6 @@ export default function Login() {
                 <S.bottomButton type="submit">로그인</S.bottomButton>
               </div>
             </S.page>
-          </Modal>
-        )}
-        <S.headerButton onClick={onClickToggleModal}>로그인</S.headerButton>
       </div>
     </form>
     </ErrorBoundary>

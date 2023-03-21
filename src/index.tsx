@@ -9,11 +9,14 @@ import {
 import reportWebVitals from "./reportWebVitals";
 
 const App = lazy(() => import("./components/page/Main"));
-const Profile = lazy(() => import("./components/page/Profile"));
+const MyPage = lazy(() => import("./components/page/MyPage"));
 const Hood = lazy(() => import("./components/page/Hood"));
 const Review = lazy(() => import("./components/page/Review"));
 const SignUp = lazy(() => import("./components/auth/SignUp"));
 const Login = lazy(() => import("./components/auth/Login"));
+const Header = lazy(()=> import("./components/common/Header"))
+const Leave = lazy(()=> import("./components/user/Leave"))
+const Info = lazy(()=> import("./components/user/Info"))
 
 const router = createBrowserRouter([
   {
@@ -25,8 +28,8 @@ const router = createBrowserRouter([
     element: <Hood />,
   },
   {
-    path: "/profile",
-    element: <Profile />,
+    path: "/mypage",
+    element: <MyPage />,
   },
   {
     path: "/Review",
@@ -40,6 +43,14 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/leave",
+    element: <Leave />,
+  },
+  {
+    path: "/info",
+    element: <Info />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(
@@ -49,6 +60,7 @@ root.render(
   <React.StrictMode>
     <Suspense fallback={<div>loading...</div>}>
     <GlobalStyle />
+    <Header />
     </Suspense>
       <RouterProvider router={router} />
   </React.StrictMode>,
