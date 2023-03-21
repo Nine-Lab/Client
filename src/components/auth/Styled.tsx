@@ -25,10 +25,10 @@ export const titleWrap = styled.div`
     color: #262626;
 `;
 
-/* 타이틀 */
+/* 리뷰 타이틀 */
 export const title = styled.div`
   text-align: left;
-  margin-top: 100px;
+  margin-top: 70px;
   font-size: 18px;
   font-weight: bold;
   color: #262626;
@@ -78,12 +78,7 @@ export const reviewInputWrap = styled.div`
 
 /* 리뷰 모달용 인풋 양식 */
 export const reviewInput = styled(Input)`
-  width: 100%;
-  outline: none;
-  border: none;
-  height: 17px;
-  font-size: 14px;
-  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
 `;
 
 /* 리뷰 내용 양식 */
@@ -99,6 +94,7 @@ export const reviewContent = styled.textarea`
     /* padding: 5px 0; */
   resize: none;
   border: none;
+  font-family: 'Roboto', sans-serif;
 `;
 export const reviewContentWrap = styled.div`
   display: flex;
