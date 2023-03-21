@@ -6,6 +6,8 @@
 
 # production
 /build
+# 엔터
+
 
 # misc
 .DS_Store
@@ -25,3 +27,5 @@ yarn-error.log*
 
 #Mac
 .DS_Store
+.next
+package-lock.json
