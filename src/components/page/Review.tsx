@@ -119,14 +119,14 @@ const Review = () => {
         const guIdRegex = /^[가-힣]{2,6}/;
         setGuId(e.target.value);
         setIsGuId(guIdRegex.test(e.target.value));
-    }, [])    
+    }, []);
 
     // 동 이름 유효성 검사
     const checkDongId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const dongIdRegex = /^[가-힣]{2,6}/;
         setDongId(e.target.value);
         setIsDongId(dongIdRegex.test(e.target.value));
-    }, [])
+    }, []);
 
     const ReviewAPI = useCallback(async () => {
         try {
