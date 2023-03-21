@@ -24,7 +24,6 @@ export default function Modal({
       <DialogBox>{children}</DialogBox>
       <Backdrop
         onClick={(e: React.MouseEvent) => {
-          e.preventDefault();
 
           if (onClickToggleModal) {
             onClickToggleModal();
@@ -42,6 +41,7 @@ const ModalContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
+  top: 0;
 `;
 
 const DialogBox = styled.dialog`
@@ -62,6 +62,7 @@ const Backdrop = styled.div`
   height: 100vh;
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.2);
 `;

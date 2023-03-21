@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useCallback } from "react";
-import Modal from "./Modal";
-import * as S from "./Styled";
+import Modal from "../auth/Modal";
+import * as S from "../auth/Styled";
 import axios from "axios";
 // import { useHistory } from "react-router-dom";
 
-export default function Login() {
+export default function LeaveModal() {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
     const onClickToggleModal = useCallback(() => {
         setOpenModal(!isOpenModal);

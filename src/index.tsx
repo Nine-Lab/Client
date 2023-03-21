@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { GlobalStyle } from "./styles/global-styles";
 
@@ -34,8 +34,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <GlobalStyle />
-        <RouterProvider router={router} />
+        <Suspense fallback={<div>loading...</div>}>
+            <GlobalStyle />
+            <RouterProvider router={router} />
+        </Suspense>
     </React.StrictMode>,
 );
 
