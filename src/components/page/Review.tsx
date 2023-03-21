@@ -94,56 +94,62 @@ const Review = () => {
     const [guId, setGuId] = useState<string>("");
     const [dongId, setDongId ] = useState<string>("");
     const [title, setTitle ] = useState<string>("");
-    const [content, setContent ] = useState<string>("");
+    const [contents, setContents] = useState<string>("");
     const [satisfactionLevel, setSatisfactionLevel ] = useState<string>("");
-    const userIdRef = useRef<HTMLInputElement>(null);
     const guIdRef = useRef<HTMLInputElement>(null);
     const dongIdRef = useRef<HTMLInputElement>(null);
     const titleRef = useRef<HTMLInputElement>(null);
-    const contentRef = useRef<HTMLInputElement>(null);
 
-    const [isGuId, setIsGuId] = useState<boolean>(false);
-    const [isDongId, setIsDongId] = useState<boolean>(false);
-    const [isTitle, setIsTitle] = useState<boolean>(false);
-    const [isContent, setIsContent] = useState<boolean>(false);
+    const [isGuIdVaild, setIsGuIdVaild] = useState<boolean>(false);
+    const [isDongIdVaild, setIsDongIdVaild] = useState<boolean>(false);
+    const [isTitleVaild, setIsTitleVaild] = useState<boolean>(false);
 
     const InvaildMessages = {
         guId: "2-6글자 한글로 입력해주세요!",
         dongId: "2-6글자 한글로 입력해주세요!",
         title: "최소 2글자 이상 입력해주세요!",
-        content: "최소 5글자 이상 입력해주세요!",
     };
+
+    const checkUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserId(e.target.value);
+    }, [])
 
     // 구 이름 유효성 검사
     const checkGuId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const guIdRegex = /^[가-힣]{2,6}/;
+        const guIdRegex = /[ㄱ-ㅎ가-힣]{2,6}/;
         setGuId(e.target.value);
-        setIsGuId(guIdRegex.test(e.target.value));
+        setIsGuIdVaild(guIdRegex.test(e.target.value));
     }, []);
 
     // 동 이름 유효성 검사
     const checkDongId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const dongIdRegex = /^[가-힣]{2,6}/;
+        const dongIdRegex = /[ㄱ-ㅎ가-힣0-9]{2,6}/;
         setDongId(e.target.value);
-        setIsDongId(dongIdRegex.test(e.target.value));
+        setIsDongIdVaild(dongIdRegex.test(e.target.value));
     }, []);
+
+    // 리뷰 제목 유효성 검사
+    const checkTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const titleRegex = /[a-zA-Zㄱ-ㅎ가-힣]{2,6}/;
+        setTitle(e.target.value);
+        setIsTitleVaild(titleRegex.test(e.target.value));
+    }, []);
+
 
     const ReviewAPI = useCallback(async () => {
         try {
             console.log("성공");
             const response = await axios.post(
                 "https://server-git-dev-server-nine-lab.vercel.app/api/reviews",
-                { userId, guId, dongId, title, content, satisfactionLevel },
+                { userId, guId, dongId, title, contents, satisfactionLevel },
             );
-            const { token } = response.data;
-            Cookies.set("token", token, { httpOnly: true });
             setOpenModal(false);
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
-            console.log("실패");
+            console.log(err);
             alert("정상적으로 등록되지 않았습니다!");
         }
-    }, [userId, guId, dongId, title, content, satisfactionLevel]);
+    }, [userId, guId, dongId, title, contents, satisfactionLevel]);
 
     const reviewSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -264,19 +270,31 @@ const Review = () => {
                     {isOpenModal && (
                     <Modal onClickToggleModal={onClickToggleModal}>
                         <form onSubmit={reviewSubmit}>
-                            <S.page>
+                            <S.page>                             
                                 <S.title>구 이름</S.title>
                                 <S.reviewInputWrap>
-                                    <S.reviewInput type='text' required placeholder="구 이름을 입력하세요"/>
+                                    <S.reviewInput type='text' required value={guId} onChange={checkGuId} ref={guIdRef} placeholder="구 이름을 입력하세요"/>
                                 </S.reviewInputWrap>
+                                <S.reviewErrorWrap>
+                                    {guId ? isGuIdVaild || <div>{InvaildMessages.guId}</div>
+                                    : null}
+                                </S.reviewErrorWrap>
                                 <S.title>동 이름</S.title>
                                 <S.reviewInputWrap>
-                                    <S.reviewInput type='text' required placeholder="동 이름을 입력하세요"/>
+                                    <S.reviewInput type='text' required value={dongId} onChange={checkDongId} ref={dongIdRef} placeholder="동 이름을 입력하세요"/>
                                 </S.reviewInputWrap>
+                                <S.reviewErrorWrap>
+                                    {dongId ? isDongIdVaild || <div>{InvaildMessages.dongId}</div>
+                                    : null}
+                                </S.reviewErrorWrap>
                                 <S.title>제목</S.title>
                                 <S.reviewInputWrap>
-                                    <S.reviewInput type='text' required placeholder="제목을 입력하세요"/>
+                                    <S.reviewInput type='text' required value={title} onChange={checkTitle} ref={titleRef} placeholder="제목을 입력하세요"/>
                                 </S.reviewInputWrap>
+                                <S.reviewErrorWrap>
+                                    {title ? isTitleVaild || <div>{InvaildMessages.title}</div>
+                                    : null}
+                                </S.reviewErrorWrap>
                                 <S.title>댓글</S.title>
                                 <S.reviewContentWrap>
                                     <S.reviewContent required value={checkItemContent} placeholder={'내용을 입력해주세요'}onChange={checkItemChangeHandler}
@@ -286,6 +304,12 @@ const Review = () => {
                                 <S.reviewInputWrap>
                                     <S.reviewInput type='text' required placeholder="별점을 입력하세요"/>
                                 </S.reviewInputWrap>
+                                <S.satisfactionLevelGuide>
+                                    <div>※매우 불만족: 1점, 조금 불만족: 2점, 보통: 3점, 조금 좋음: 4점, 약간 좋음: 5점</div>
+                                </S.satisfactionLevelGuide>
+                                <S.inputWrap>
+                                    <S.reviewInput type='text' required value={userId} onChange={checkUserId}/>
+                                </S.inputWrap>   
                                 <div>
                                     <S.reviewButton>리뷰 업로드</S.reviewButton>
                                 </div>

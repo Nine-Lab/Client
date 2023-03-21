@@ -71,7 +71,7 @@ export const reviewInputWrap = styled.div`
   width: 300px;
   right: 10px;
   margin-left: 100px;
-  margin-top: -33px;
+  margin-top: -36px;
   background-color: white;
   border: 1px solid #e2e0e0;
 `
@@ -144,7 +144,7 @@ export const reviewButton  = styled.button`
   background-color: #81c6e8;
   color: white;
   position: absolute;
-  bottom: 50px;
+  bottom: 30px;
   left: 70px;
   cursor: pointer;
 
@@ -163,3 +163,16 @@ export const errorMessageWrap = styled.div`
 export const LoginForm = styled.form`
   width: 400px;
 `;
+
+export const reviewErrorWrap = styled.div`
+  padding-top: 5px;
+  margin-left: -100px;
+  color: #ef0000;
+  font-size: 12px;
+`
+
+/* 안내 문구 */
+export const satisfactionLevelGuide = styled.div`
+  padding-top: 5px;
+  font-size: 12px;
+`
