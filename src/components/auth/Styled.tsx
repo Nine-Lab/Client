@@ -126,6 +126,16 @@ export const bottomButton = styled.button`
   margin-bottom: 16px;
   cursor: pointer;
 `;
+export const headerButton = styled.button`
+  height: 48px;
+  border: none;
+  font-weight: bold;
+  background-color: #81c6e8;
+  color: white;
+  margin-bottom: 16px;
+  cursor: pointer;
+`;
+
 
 /* 리뷰 생성 버튼 */
 export const reviewButton  = styled.button`
