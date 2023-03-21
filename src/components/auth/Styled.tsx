@@ -24,6 +24,16 @@ export const titleWrap = styled.div`
     font-weight: bold;
     color: #262626;
 `;
+
+/* 타이틀 */
+export const title = styled.div`
+  text-align: left;
+  margin-top: 100px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #262626;
+`;
+
 export const contentWrap = styled.div`
   margin-top: 26px;
   flex: 1;
@@ -53,6 +63,57 @@ export const Input = styled.input`
   font-weight: 400;
 `;
 
+/* 리뷰 모달용 */
+export const reviewInputWrap = styled.div`
+  display: flex;
+  border-radius: 8px;
+  padding: 16px;
+  width: 300px;
+  right: 10px;
+  margin-left: 100px;
+  margin-top: -33px;
+  background-color: white;
+  border: 1px solid #e2e0e0;
+`
+
+/* 리뷰 모달용 인풋 양식 */
+export const reviewInput = styled(Input)`
+  width: 100%;
+  outline: none;
+  border: none;
+  height: 17px;
+  font-size: 14px;
+  font-weight: 400;
+`;
+
+/* 리뷰 내용 양식 */
+export const reviewContent = styled.textarea`
+  width: 100%;
+  height: 500px;
+  outline: none;
+  border: none;
+  height: 17px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 27px;
+    /* padding: 5px 0; */
+  resize: none;
+  border: none;
+`;
+export const reviewContentWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 16px;
+  width: 300px;
+  height: 150px;
+  right: 10px;
+  margin-left: 100px;
+  margin-top: -33px;
+  background-color: white;
+  border: 1px solid #e2e0e0;    
+`;
+
 /* 확인 버튼 */
 export const bottomButton = styled.button`
   width: 100%;
@@ -75,6 +136,26 @@ export const headerButton = styled.button`
   cursor: pointer;
 `;
 
+
+/* 리뷰 생성 버튼 */
+export const reviewButton  = styled.button`
+  width: 70%;
+  height: 48px;
+  border: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 64px;
+  background-color: #81c6e8;
+  color: white;
+  position: absolute;
+  bottom: 50px;
+  left: 70px;
+  cursor: pointer;
+
+  &:active{
+        background-color: #5DA7DB;
+  }
+`
 
 /* 에러 문구 */
 export const errorMessageWrap = styled.div`

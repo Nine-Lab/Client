@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, {useState, useCallback} from "react";
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -15,6 +15,11 @@ import Divider from "@mui/material/Divider";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import * as S from "../auth/Styled";
+import Modal from '../auth/Modal';
+
+import ErrorBoundary from "../common/ErrorBoundary";
+import Error from "../common/Error";
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -48,10 +53,44 @@ const MapContainer = styled("div")`
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 `;
 
+const Comment = styled.button`
+    width: 40%;
+    margin-top: 80px;
+    height: 40px;
+    border-color: black;
+    border-radius: 7px;
+    background-color: #81C6E8;
+    box-shadow: 0px 5px 13px rgb(0 0 0 / 16%);
+    font-weight: bold;
+    color: white;
+
+    &:active{
+        background-color: #5DA7DB;
+    }
+`
+
 //  샘플 레이아웃
 const Review = () => {
+    const [isOpenModal, setOpenModal] = useState<boolean>(false);
+    const onClickToggleModal = useCallback(() => {
+        setOpenModal(!isOpenModal);
+    }, [isOpenModal]);
+
+    // 유저 입력 값을 넣을 변수
+    const [checkItemContent, setCheckItemContent] = useState('');
+  // 줄 수를 계산해서 저장할 변수
+  const [textareaHeight, setTextareaHeight] = useState(0);
+
+  // 사용자 입력 값이 변경될 때마다 checkItemContent에 저장하고
+  // 엔터('\n') 개수를 세서 textareaHeight에 저장
+  const checkItemChangeHandler = (event: any) => {
+      setTextareaHeight(event.target.value.split('\n').length - 1);
+      setCheckItemContent(event.target.value);
+  }
+
     return (
-        <CarouselContainer>
+        <ErrorBoundary fallback={Error}>
+            <CarouselContainer>
             <InfoContainer>
                 <Typography
                     variant="h5"
@@ -159,6 +198,35 @@ const Review = () => {
                 <Stack spacing={2}>
                     <Pagination count={5} color="primary" />
                 </Stack>
+                <div>
+                {isOpenModal && (
+                <Modal onClickToggleModal={onClickToggleModal}>
+                    <S.page>
+                        <S.title>구 이름</S.title>
+                        <S.reviewInputWrap>
+                            <S.reviewInput type='text' required placeholder="구 이름을 입력하세요"></S.reviewInput>
+                        </S.reviewInputWrap>
+                        <S.title>동 이름</S.title>
+                        <S.reviewInputWrap>
+                            <S.reviewInput type='text' required placeholder="동 이름을 입력하세요"></S.reviewInput>
+                        </S.reviewInputWrap>
+                        <S.title>제목</S.title>
+                        <S.reviewInputWrap>
+                            <S.reviewInput type='text' required placeholder="제목을 입력하세요"></S.reviewInput>
+                        </S.reviewInputWrap>
+                        <S.title>댓글</S.title>
+                        <S.reviewContentWrap>
+                            <S.reviewContent required value={checkItemContent} placeholder={'내용을 입력해주세요'}onChange={checkItemChangeHandler}
+        style={{height: ((textareaHeight + 1) * 27) + 'px'}}/>
+                        </S.reviewContentWrap>
+                        <div>
+                            <S.reviewButton>리뷰 업로드</S.reviewButton>
+                        </div>
+                    </S.page>
+                </Modal>
+            )}
+                </div>
+                <Comment onClick={onClickToggleModal}>리뷰 남기기</Comment>
             </InfoContainer>
 
             <MapContainer>
@@ -188,6 +256,8 @@ const Review = () => {
                 />
             </MapContainer>
         </CarouselContainer>
+        </ErrorBoundary>
+        
     );
 };
 export default Review;
