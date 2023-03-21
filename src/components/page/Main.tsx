@@ -5,7 +5,7 @@ import MainCarousel from "components/carousel/MainCarousel";
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
 
-const BackGroundContainer = styled("div")`
+export const BackGroundContainer = styled("div")`
     width: 100%;
     display: flex;
     height: calc(100vh);
