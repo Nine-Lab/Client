@@ -17,7 +17,7 @@ const Login:FC<LoginProps> = ({isLoginOpen, onCloseModal}) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-  //****** 로그인 API
+  //****** 로그인 API //
     const loginAPI = useCallback(async (email: string, password: string) => {
     try {
         console.log("성공");
