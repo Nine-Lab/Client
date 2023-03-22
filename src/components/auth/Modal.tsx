@@ -33,20 +33,27 @@ export default function Modal({
 }
 
 const ModalContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
+    width: 400px;
+    height: 500px;
+    left: 0px;
+    /* display: flex; */
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     position: absolute;
-    top: 0;
+    bottom: 0px;
+    z-index: 1000;
+    background: black;
+    /* transform: translate(-50%, -50%); */
 `;
 
 const DialogBox = styled.dialog`
+    position: absolute;
+    left: calc(50% - 400px);
+    bottom: calc(50vh - 400px);
     width: 800px;
     height: 800px;
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     border: none;
     border-radius: 3px;
     box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
