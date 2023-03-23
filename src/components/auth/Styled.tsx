@@ -3,7 +3,7 @@ import styled from 'styled-components';
 /* 모달 안 회색창 */
 export const page = styled.div`
   position: absolute;
-  top: 0;
+  top: 10;
   bottom: 0;
   width: 100%;
   max-width: 500px;
@@ -16,7 +16,7 @@ export const page = styled.div`
   flex-direction: column;
 `;
 
-/* 로그인 글 */
+/* 로그인,회원가입 타이틀 텍스트 */
 export const titleWrap = styled.div`
     text-align: center;
     margin-top: 87px;
@@ -40,6 +40,7 @@ export const contentWrap = styled.div`
 `;
 /* 이메일주소, 비밀번호 글자 */
 export const inputTitle = styled.div`
+  text-align: left;
   font-size: 12px;
   font-weight: 600;
   color: #262626;
@@ -107,7 +108,7 @@ export const reviewContentWrap = styled.div`
   margin-left: 100px;
   margin-top: -33px;
   background-color: white;
-  border: 1px solid #e2e0e0;    
+  /* border: 1px solid #e2e0e0;     */
 `;
 
 /* 확인 버튼 */
