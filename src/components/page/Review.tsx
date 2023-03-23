@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from "react";
+import React, {useState, useCallback, useRef, useEffect} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
@@ -7,17 +7,11 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import * as S from "../auth/Styled";
 import Modal from '../auth/Modal';
+import Posts from "../review/Posts";
 
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
@@ -75,7 +69,7 @@ const Review = () => {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
     const onClickToggleModal = useCallback(() => {
         setOpenModal(!isOpenModal);
-    }, [isOpenModal]);
+    }, [isOpenModal]);    
 
   // 유저 입력 값을 넣을 변수
     const [checkItemContent, setCheckItemContent] = useState('');
@@ -133,7 +127,7 @@ const Review = () => {
         setTitle(e.target.value);
         setIsTitleVaild(titleRegex.test(e.target.value));
     }, []);
-
+    
 
     const ReviewAPI = useCallback(async () => {
         try {
@@ -155,6 +149,22 @@ const Review = () => {
         ReviewAPI();
     }
 
+    // 리뷰 페이지네이션
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {        
+            setLoading(true);
+            axios.get("https://server-git-dev-server-nine-lab.vercel.app/api/review"
+            ).then(res => {
+                setPosts(res.data);
+                setLoading(false);
+                alert("불러오기 성공");
+            })
+    }, []);
+
+    console.log(posts);
+
     return (
         <ErrorBoundary fallback={Error}>
             <CarouselContainer>
@@ -169,102 +179,7 @@ const Review = () => {
                     <Typography variant="h6" gutterBottom>
                         용산구
                     </Typography>
-                    <List
-                        sx={{
-                            width: "100%",
-                            maxWidth: 360,
-                            bgcolor: "background.paper",
-                        }}
-                    >
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="https://mui.com/static/images/avatar/2.jpg"
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="정연준"
-                                secondary="오늘, 강남구"
-                            />
-                            Good &nbsp; <CheckCircleIcon color="primary" />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="https://mui.com/static/images/avatar/3.jpg"
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="김진희"
-                                secondary="5일전, 성동구"
-                            />
-                            Bad &nbsp; <CheckCircleIcon sx={{ color: "red" }} />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="https://mui.com/static/images/avatar/1.jpg"
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="박준헌"
-                                secondary="13일전, 강서구"
-                            />
-                            Normal &nbsp;{" "}
-                            <CheckCircleIcon sx={{ color: "green" }} />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="https://mui.com/static/images/avatar/7.jpg"
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="안소영"
-                                secondary="15일전, 강서구"
-                            />
-                            Normal &nbsp;{" "}
-                            <CheckCircleIcon sx={{ color: "green" }} />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="https://mui.com/static/images/avatar/4.jpg"
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="한다희"
-                                secondary="16일전, 광진구"
-                            />
-                            Bad &nbsp; <CheckCircleIcon sx={{ color: "red" }} />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="https://mui.com/static/images/avatar/6.jpg"
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="허지환"
-                                secondary="23일전, 중랑구"
-                            />
-                            Good &nbsp; <CheckCircleIcon color="primary" />
-                        </ListItem>
-                    </List>
-                    <Stack spacing={2}>
-                        <Pagination count={5} color="primary" />
-                    </Stack>
+                    <Posts posts={posts} loading={loading}/>
                     <div>
                     {isOpenModal && (
                     <Modal onClickToggleModal={onClickToggleModal}>
@@ -296,7 +211,7 @@ const Review = () => {
                                 </S.reviewErrorWrap>
                                 <S.title>댓글</S.title>
                                 <S.reviewContentWrap>
-                                    <S.reviewContent required value={checkItemContent} placeholder={'내용을 입력해주세요'}onChange={checkItemChangeHandler}
+                                    <S.reviewContent required value={checkItemContent} placeholder={'내용을 입력해주세요'} onChange={checkItemChangeHandler}
                 style={{height: ((textareaHeight + 1) * 27) + 'px'}}/>
                                 </S.reviewContentWrap>
                                 <S.title>별점</S.title>
