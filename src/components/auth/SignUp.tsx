@@ -55,7 +55,7 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
     try {
       // console.log("성공");
       const response = await axios.post(
-        "https://shiny-shea-devhwann.koyeb.app/api/users/register",
+        "https://server-git-dev-server-nine-lab.vercel.app/api/users/register",
         { name, email, password }
       );
       const { token } = response.data;

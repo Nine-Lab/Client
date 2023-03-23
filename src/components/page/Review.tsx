@@ -7,10 +7,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import * as S from "../auth/Styled";
-import Modal from '../auth/Modal';
+import ReviewModal from "../review/ReviewModal";
 import Posts from "../review/Posts";
 
 import ErrorBoundary from "../common/ErrorBoundary";
@@ -165,6 +163,15 @@ const Review = () => {
 
     console.log(posts);
 
+    const [offset, setOffset] = useState(0); // 백엔드에 요청할 데이터 순서 정보
+    // offset 이후 순서의 데이터부터 10개씩 데이터를 받아올 것임
+    const [target, setTarget] = useState(null); // 관찰대상 target
+    const [isLoaded, setIsLoaded] = useState(null); // Load 중인가를 판별하는 boolean
+    // 요청이 여러번 가는 것을 방지하기 위해서
+    const [stop, setStop] = useState(false); // 마지막 데이터까지 다 불러온 경우 더이상 요청을
+    // 마지막 부분까지 가버릴 때 계속 요청을 보내는 것 방지
+
+
     return (
         <ErrorBoundary fallback={Error}>
             <CarouselContainer>
@@ -176,13 +183,10 @@ const Review = () => {
                     >
                         현지 리뷰
                     </Typography>
-                    <Typography variant="h6" gutterBottom>
-                        용산구
-                    </Typography>
                     <Posts posts={posts} loading={loading}/>
                     <div>
                     {isOpenModal && (
-                    <Modal onClickToggleModal={onClickToggleModal}>
+                    <ReviewModal onClickToggleModal={onClickToggleModal}>
                         <form onSubmit={reviewSubmit}>
                             <S.page>                             
                                 <S.title>구 이름</S.title>
@@ -229,7 +233,7 @@ const Review = () => {
                                 </div>
                             </S.page>
                         </form>                        
-                    </Modal>
+                    </ReviewModal>
                 )}
                     </div>
                     <Comment onClick={onClickToggleModal}>리뷰 남기기</Comment>

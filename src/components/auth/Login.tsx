@@ -22,7 +22,7 @@ const Login:FC<LoginProps> = ({isLoginOpen, onCloseModal}) => {
     try {
         console.log("성공");
         const response = await axios.post(
-            "https://shiny-shea-devhwann.koyeb.app/api/users/login",
+            "https://server-git-dev-server-nine-lab.vercel.app/api/users/login",
             { email, password },
         );
         const { token } = response.data;
