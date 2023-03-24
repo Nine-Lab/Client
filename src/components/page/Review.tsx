@@ -44,6 +44,7 @@ const InfoContainer = styled("div")`
     border-radius: 7px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-align: center;
+    overflow-y: scroll;
 `;
 
 const MapContainer = styled("div")`
@@ -100,24 +101,22 @@ const Review = () => {
     const onClickToggleModal = useCallback(() => {
         setOpenModal(!isOpenModal);
     }, [isOpenModal]);
-
-    // 유저 입력 값을 넣을 변수
-    const [checkItemContent, setCheckItemContent] = useState("");
+    
     // 줄 수를 계산해서 저장할 변수
     const [textareaHeight, setTextareaHeight] = useState(0);
-
+    // 유저 입력 값을 넣을 변수
+    const [contents, setContents] = useState<string>("");
     // 사용자 입력 값이 변경될 때마다 checkItemContent에 저장하고
     // 엔터('\n') 개수를 세서 textareaHeight에 저장
     const checkItemChangeHandler = (event: any) => {
         setTextareaHeight(event.target.value.split("\n").length - 1);
-        setCheckItemContent(event.target.value);
+        setContents(event.target.value);
     };
 
     const [userId, setUserId] = useState<string>("");
     const [guId, setGuId] = useState<string>("");
     const [dongId, setDongId] = useState<string>("");
-    const [title, setTitle] = useState<string>("");
-    const [contents, setContents] = useState<string>("");
+    const [title, setTitle] = useState<string>("");    
     const [satisfactionLevel, setSatisfactionLevel] = useState<string>("");
     const guIdRef = useRef<HTMLInputElement>(null);
     const dongIdRef = useRef<HTMLInputElement>(null);
@@ -174,8 +173,6 @@ const Review = () => {
         return null; // 토큰을 찾을 수 없으면 null을 반환
     };
 
-    console.log(getUserId());
-
     const ReviewAPI = useCallback(async () => {
         try {
             const userId = getUserId();
@@ -184,10 +181,6 @@ const Review = () => {
                 { userId, guId, dongId, title, contents, satisfactionLevel },
             {headers: {"Content-Type": "application/json",} }             
             )
-            if(userId){
-                // userId가 발견되면 콘솔에 기록
-                console.log(userId);
-            }
             setOpenModal(false);
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
@@ -208,7 +201,7 @@ const Review = () => {
 
     useEffect(() => {
         setLoading(true);
-        const response = axios.get("https://server-git-dev-server-nine-lab.vercel.app/api/review")
+        axios.get("https://server-git-dev-server-nine-lab.vercel.app/api/review")
             .then(res => {
                 setPosts(res.data);
                 setLoading(false);
@@ -228,7 +221,7 @@ const Review = () => {
                         <Typography
                             variant="h5"
                             gutterBottom
-                            sx={{ paddingTop: "1.5rem" }}
+                            sx={{ paddingTop: "1rem" }}
                         >
                             현지 리뷰
                         </Typography>
@@ -311,10 +304,7 @@ const Review = () => {
                                             <S.reviewContentWrap>
                                                 <S.reviewContent
                                                     required
-                                                    value={checkItemContent}
-                                                    placeholder={
-                                                        "내용을 입력해주세요"
-                                                    }
+                                                    value={contents}                                                    
                                                     onChange={
                                                         checkItemChangeHandler
                                                     }

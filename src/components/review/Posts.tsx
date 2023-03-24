@@ -32,7 +32,7 @@ const Posts: FC<PostsProps> = ({posts, loading}) => {
                     {posts && posts.map((post: any) => {
                         return (
                             <ul>
-                                <ListStyle key={post._id}>{post.title}:{post.content}</ListStyle>
+                                <ListStyle key={post.userId}>{post.title}:{post.content}</ListStyle>
                                 <Divider/>
                             </ul>                        
                         )
