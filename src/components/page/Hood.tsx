@@ -106,9 +106,9 @@ const Hood = () => {
                                 onChange={handleChange}
                                 aria-label="basic tabs example"
                             >
-                                <Tab label="Item One" {...a11yProps(0)} />
-                                <Tab label="Item Two" {...a11yProps(1)} />
-                                <Tab label="Item Three" {...a11yProps(2)} />
+                                <Tab label="초, 미세먼지" {...a11yProps(0)} />
+                                <Tab label="침수" {...a11yProps(1)} />
+                                <Tab label="생활환경" {...a11yProps(2)} />
                             </Tabs>
                         </Box>
                     </Box>
@@ -136,7 +136,7 @@ const InfoContainer = styled("div")`
     width: 20%;
     /* position: absolute; */
     margin: 0 auto;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 150px);
     background-color: white;
     box-shadow: 0 12px 13px rgb(0 0 0 / 16%), 0 12px 13px rgb(0 0 0 / 16%);
     border-radius: 7px;
@@ -149,7 +149,7 @@ const MapContainer = styled("div")`
     width: 70%;
     /* position: absolute; */
     margin: 0 auto;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 150px);
     background-color: white;
     box-shadow: 0 12px 13px rgb(0 0 0 / 16%), 0 12px 13px rgb(0 0 0 / 16%);
     border-radius: 7px;
