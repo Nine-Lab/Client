@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
+
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -11,10 +13,17 @@ import Select from "@mui/material/Select";
 import * as S from "../auth/Styled";
 import ReviewModal from "../review/ReviewModal";
 import Posts from "../review/Posts";
+import SimpleMap from "components/map/map";
 
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
 import { BackGroundContainer } from "./Main";
+
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -50,7 +59,7 @@ const MapContainer = styled("div")`
 
 const Comment = styled.button`
     width: 40%;
-    margin-top: 40px;
+    margin-top: 5px;
     height: 40px;
     border-color: black;
     border-radius: 7px;
@@ -63,6 +72,27 @@ const Comment = styled.button`
         background-color: #5da7db;
     }
 `;
+
+function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
 
 //  샘플 레이아웃
 const Review = () => {
@@ -103,12 +133,11 @@ const Review = () => {
         title: "최소 2글자 이상 입력해주세요!",
     };
 
-    const checkUserId = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setUserId(e.target.value);
-        },
-        [],
-    );
+    interface DecodedToken {
+        userId: string;
+    }
+
+
 
     // 구 이름 유효성 검사
     const checkGuId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,14 +163,32 @@ const Review = () => {
         setIsTitleVaild(titleRegex.test(e.target.value));
     }, []);
 
+    const getUserId = () => {
+        const token = Cookies.get("token"); // 쿠키에서 토큰을 검색
+        if (token) {
+            //토큰이 발견되면 토큰을 디코딩하고 userId를 추출
+            const decoded: DecodedToken = jwt_decode(token);
+            const { userId } = decoded;
+            return userId;
+        }
+        return null; // 토큰을 찾을 수 없으면 null을 반환
+    };
+
+    console.log(getUserId());
+
     const ReviewAPI = useCallback(async () => {
         try {
-            await axios.post(
+            const userId = getUserId();
+            const response = await axios.post(
                 "https://server-git-dev-server-nine-lab.vercel.app/api/reviews",
                 { userId, guId, dongId, title, contents, satisfactionLevel },
-            );
+            {headers: {"Content-Type": "application/json",} }             
+            )
+            if(userId){
+                // userId가 발견되면 콘솔에 기록
+                console.log(userId);
+            }
             setOpenModal(false);
-            console.log("성공");
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
             console.log(err);
@@ -161,8 +208,7 @@ const Review = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios
-            .get("https://server-git-dev-server-nine-lab.vercel.app/api/review")
+        const response = axios.get("https://server-git-dev-server-nine-lab.vercel.app/api/review")
             .then(res => {
                 setPosts(res.data);
                 setLoading(false);
@@ -171,14 +217,8 @@ const Review = () => {
 
     console.log(posts);
 
-    const [offset, setOffset] = useState(0); // 백엔드에 요청할 데이터 순서 정보
-    // offset 이후 순서의 데이터부터 10개씩 데이터를 받아올 것임
-    const [target, setTarget] = useState(null); // 관찰대상 target
-    const [isLoaded, setIsLoaded] = useState(null); // Load 중인가를 판별하는 boolean
-    // 요청이 여러번 가는 것을 방지하기 위해서
-    const [stop, setStop] = useState(false); // 마지막 데이터까지 다 불러온 경우 더이상 요청을
-    // 마지막 부분까지 가버릴 때 계속 요청을 보내는 것 방지
-
+    // 지도 관련
+    const [value, setValue] = React.useState(0);
 
     return (
         <ErrorBoundary fallback={Error}>
@@ -188,7 +228,7 @@ const Review = () => {
                         <Typography
                             variant="h5"
                             gutterBottom
-                            sx={{ paddingTop: "3rem" }}
+                            sx={{ paddingTop: "1.5rem" }}
                         >
                             현지 리뷰
                         </Typography>
@@ -259,12 +299,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {title
                                                     ? isTitleVaild || (
-                                                          <div>
-                                                              {
-                                                                  InvaildMessages.title
-                                                              }
-                                                          </div>
-                                                      )
+                                                            <div>
+                                                                {
+                                                                    InvaildMessages.title
+                                                                }
+                                                            </div>
+                                                        )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>댓글</S.title>
@@ -302,14 +342,6 @@ const Review = () => {
                                                     좋음: 4점, 매우 좋음: 5점
                                                 </div>
                                             </S.satisfactionLevelGuide>
-                                            <S.inputWrap>
-                                                <S.reviewInput
-                                                    type="text"
-                                                    required
-                                                    value={userId}
-                                                    onChange={checkUserId}
-                                                />
-                                            </S.inputWrap>
                                             <div>
                                                 <S.reviewButton>
                                                     리뷰 업로드
@@ -344,12 +376,9 @@ const Review = () => {
                                 </Select>
                             </FormControl>
                         </Box>
-                        <img
-                            src="../../pngegg.png"
-                            alt="asd"
-                            width={400}
-                            height={300}
-                        />
+                        <TabPanel value={value} index={0}>
+                            <SimpleMap />
+                        </TabPanel>
                     </MapContainer>
                 </CarouselContainer>
             </BackGroundContainer>
