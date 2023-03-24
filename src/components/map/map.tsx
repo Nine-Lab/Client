@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { SimpleSouthKoreaMapChart } from "react-simple-south-korea-map-chart";
 import {
     ComposableMap,
     Geographies,
@@ -9,47 +8,71 @@ import {
 } from "react-simple-maps";
 
 import seoulMap from "../../api/data/seoul.json";
+import ReactTooltip from "react-tooltip";
+// ooltip, TooltipProvider, TooltipWrapper
 
-const data = seoulMap;
+// type Props = {
+//     zoom: any;
+// };
 
-type Props = {
-    zoom: any;
-};
-
-const SimpleMap = () => {
-    const [currentState, setCurrentState] = useState({
-        map: seoulMap,
-        // center: [126.986:number, 37.561],
-    });
+const SimpleMap = ({ currentState }) => {
+    const [tooltipName, setTooltipName] = useState("");
     return (
         <div>
+            <ReactTooltip type="light"> {tooltipName}</ReactTooltip>
             <ComposableMap
                 projection="geoMercator"
                 projectionConfig={{ rotate: [-60, 0, 5], scale: 38000 }}
+                data-tip=""
             >
-                <ZoomableGroup center={[126.986, 37.561]}>
-                    <Geographies geography={data}>
+                <ZoomableGroup
+                    center={currentState.center}
+                    zoom={currentState.zoom}
+                    // minZoom={currentState.zoom - 1}
+                    // maxZoom={currentState.zoom + 1}
+                >
+                    <Geographies geography={currentState.map}>
                         {({ geographies }) =>
-                            geographies.map(geo => (
-                                <Geography
-                                    key={geo.rsmKey}
-                                    geography={geo}
-                                    stroke={"#F5F5F5"}
-                                    fill={"#E4E5E9"}
-                                    style={{
-                                        default: {
-                                            outline: "none",
-                                        },
-                                        hover: {
-                                            outline: "none",
-                                        },
-                                        pressed: {
-                                            fill: "fff",
-                                            outline: "#333",
-                                        },
-                                    }}
-                                />
-                            ))
+                            geographies.map(geo => {
+                                return (
+                                    <Geography
+                                        className="tansition"
+                                        // fill={
+                                        //     currentState.currentView !==
+                                        //     "ranking"
+                                        //     // : mapColor(currentState)(cur ? cur.VALUE : "#E4E5E9")
+                                        // }
+                                        stroke={"#F5F5F5"}
+                                        strokeWidth={
+                                            currentState.isZoom ? 0 : 0.4
+                                        }
+                                        onMouseEnter={() => {
+                                            // if (currentState.currentView === "ranking") {
+                                            const { name } = geo.properties;
+                                            setTooltipName(name);
+                                            // }
+                                        }}
+                                        onMouseLeave={() => {
+                                            setTooltipName("");
+                                        }}
+                                        fill={"#E4E5E9"}
+                                        key={geo.rsmKey}
+                                        geography={geo}
+                                        style={{
+                                            default: {
+                                                outline: "none",
+                                            },
+                                            hover: {
+                                                outline: "none",
+                                            },
+                                            pressed: {
+                                                fill: "fff",
+                                                outline: "#333",
+                                            },
+                                        }}
+                                    />
+                                );
+                            })
                         }
                     </Geographies>
                 </ZoomableGroup>

@@ -2,13 +2,13 @@ import React from "react";
 import DustChart from "./Chart";
 
 const chartData = {
-    labels: ["2017", "2018", "2019", "2020", "2021", "2022"],
+    labels: ["2017", "2018", "2019", "2020", "2021"],
 
     datasets: [
         {
             label: "침수방지예산",
             display: true,
-            data: [1, 21, 32, 43, 55, 65, 73],
+            data: [29, 37, 88, 63, 187],
             borderColor: "#36A2EB",
             borderDash: [],
             borderCapStyle: "butt",
@@ -60,7 +60,7 @@ const options = {
         },
         title: {
             display: true,
-            text: "서울시 침수위험지구 평균",
+            text: "서울시 주거예산",
             font: {
                 size: 18,
             },
