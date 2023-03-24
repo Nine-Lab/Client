@@ -7,7 +7,7 @@ const chartData = {
     datasets: [
         {
             label: "침수방지예산",
-            // display: true,
+            display: true,
             data: [1, 21, 32, 43, 55, 65, 73],
             borderColor: "#36A2EB",
             borderDash: [],
@@ -22,14 +22,14 @@ const chartData = {
             pointHoverBackgroundColor: "rgba(75,192,192,1)",
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 4,
             pointHitRadius: 10,
             tension: 0.1,
             backgroundColor: "#36A2EB",
         },
         {
             label: "침수위험지구",
-            // display: true,
+            display: true,
             data: [20, 15, 10, 5, 5, 4],
             borderColor: "red",
             borderDash: [],
@@ -44,7 +44,7 @@ const chartData = {
             pointHoverBackgroundColor: "rgba(75,192,192,1)",
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 4,
             pointHitRadius: 10,
             tension: 0.1,
             backgroundColor: "red",
@@ -86,7 +86,7 @@ const options = {
         // x축과 y축 설정
         x: {
             grid: {
-                display: false,
+                // display: false,
             },
             ticks: {
                 color: "#C4C4C4",
@@ -95,7 +95,7 @@ const options = {
 
         y: {
             grid: {
-                display: false,
+                // display: false,
                 color: "#E4E5E9",
             },
             ticks: {

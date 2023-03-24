@@ -112,8 +112,6 @@ const Hood = () => {
                             </Tabs>
                         </Box>
                     </Box>
-                    {/* <BasicTabs /> */}
-                    {/* <SimpleMap /> */}
                     <TabPanel value={value} index={0}>
                         <SimpleMap />
                     </TabPanel>
