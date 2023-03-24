@@ -1,12 +1,13 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
-import Modal from "./Modal";
+import React, { FC, useRef, useState, useCallback, useEffect } from "react";
 import * as S from "./Styled";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ErrorBoundary from "../common/ErrorBoundary";
-import Error from "../common/Error";
 
-export default function SignUp() {
+interface SignUpProps {
+  isSignupOpen: boolean;
+  onCloseModal?: () => void;
+}
+const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -29,6 +30,7 @@ export default function SignUp() {
     email: "유효하지 않은 이메일 형식입니다",
     password: "비밀번호가 일치하지 않습니다"
   };
+
 // 이름 유효성 검사
   const checkName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const nameRegex = /^[가-힣]{2,6}$/;
@@ -36,7 +38,7 @@ export default function SignUp() {
     setIsNameValid(nameRegex.test(e.target.value));
   }, []);
 
-  // 이메일 유효성 검사
+  // 이메일 유효성 검사 ///
   const checkEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     setEmail(e.target.value);
@@ -51,17 +53,15 @@ export default function SignUp() {
 
   const signupAPI = useCallback(async () => {
     try {
-      // console.log("성공");
       const response = await axios.post(
-        "https://shiny-shea-devhwann.koyeb.app/api/users/register",
-        { name, email, password }
-      );
+        "https://server-git-dev-server-nine-lab.vercel.app/api/users/register",
+        { name, email, password });
       const { token } = response.data;
-      Cookies.set("token", token, { httpOnly: true });
-      setOpenModal(false)
+      Cookies.set("token", token);
       alert("회원가입이 완료되었습니다.");
+      onCloseModal?.();
     } catch (err) {
-      // console.log("실패");
+      console.log("실패");
       alert("이미 사용중인 이메일입니다.");
     }
   }, [name, email, password]);
@@ -78,91 +78,100 @@ export default function SignUp() {
       signupAPI();
     }
   };
+  // 모달 중간에 나가면 정보 삭제
+  const resetForm = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setCheckPassword('');
+  };
+  const handleClickModalMask = () => {
+    resetForm();
+    onCloseModal?.();
+  };
 
-  return (
-    <ErrorBoundary fallback={Error}>
-    <div>
-      <form onSubmit={signupSubmit}>
-        {isOpenModal && (
-          <Modal onClickToggleModal={onClickToggleModal}>
-            <S.page>
-              <S.titleWrap>회원가입</S.titleWrap>
-              <S.contentWrap>
-                <S.inputTitle>이름</S.inputTitle>
-                <S.inputWrap>
-                  <S.Input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={checkName}
-                    ref={nameRef}
-                    placeholder="이름을 입력하세요(2 - 6글자)"
-                  />
-                </S.inputWrap>
+  return isSignupOpen ? (
+    <>
+    <div style={{width: '500px', height: '500px', position: "absolute", left: 'calc(50% - 250px)', top: 'calc(50vh - 250px)', zIndex: '10000'}}>
+    <form onSubmit={signupSubmit}>
+      <div >
+          <S.page>
+            <S.titleWrap>JOIN</S.titleWrap>
+            <S.contentWrap>
+              <S.inputTitle>이름</S.inputTitle>
+              <S.inputWrap>
+                <S.Input
+                  type="text"
+                  required
+                  value={name}
+                  onChange={checkName}
+                  ref={nameRef}
+                  placeholder="이름을 입력하세요(2 - 6글자)"
+                />
+              </S.inputWrap>
+              <S.errorMessageWrap>
+                {name
+                  ? isNameValid || <div>{InvalidMessages.name}</div>
+                  : null}
+              </S.errorMessageWrap>
+              <S.inputTitle style={{ marginTop: "26px" }}>
+                이메일 주소
+              </S.inputTitle>
+              <S.inputWrap>
+                <S.Input
+                  type="text"
+                  required
+                  value={email}
+                  onChange={checkEmail}
+                  ref={emailRef}
+                  placeholder="이메일을 입력하세요"
+                />
+              </S.inputWrap>
+              <S.errorMessageWrap>
+                {email
+                  ? isEmailValid || <div>{InvalidMessages.email}</div>
+                  : null}
+              </S.errorMessageWrap>
+              <S.inputTitle style={{ marginTop: "26px" }}>
+                비밀번호
+              </S.inputTitle>
+              <S.inputWrap>
+                <S.Input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="비밀번호를 입력하세요(8글자 이상)"
+                />
+              </S.inputWrap>
+              <S.inputTitle style={{ marginTop: "26px" }}>
+                비밀번호 재확인
+              </S.inputTitle>
+              <S.inputWrap>
+                <S.Input
+                  type="password"
+                  required
+                  value={checkPassword}
+                  onChange={(e) => setCheckPassword(e.target.value)}
+                  ref={pwRef}
+                  placeholder="비밀번호를 한 번 더 입력하세요"
+                />
+              </S.inputWrap>
+              {isPwMatch || (
                 <S.errorMessageWrap>
-                  {name
-                    ? isNameValid || <div>{InvalidMessages.name}</div>
-                    : null}
+                  {InvalidMessages.password}
                 </S.errorMessageWrap>
-
-                <S.inputTitle style={{ marginTop: "26px" }}>
-                  이메일 주소
-                </S.inputTitle>
-                <S.inputWrap>
-                  <S.Input
-                    type="text"
-                    required
-                    value={email}
-                    onChange={checkEmail}
-                    ref={emailRef}
-                    placeholder="이메일을 입력하세요"
-                  />
-                </S.inputWrap>
-                <S.errorMessageWrap>
-                  {email
-                    ? isEmailValid || <div>{InvalidMessages.email}</div>
-                    : null}
-                </S.errorMessageWrap>
-                <S.inputTitle style={{ marginTop: "26px" }}>
-                  비밀번호
-                </S.inputTitle>
-                <S.inputWrap>
-                  <S.Input
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="비밀번호를 입력하세요(8글자 이상)"
-                  />
-                </S.inputWrap>
-                <S.inputTitle style={{ marginTop: "26px" }}>
-                  비밀번호 재확인
-                </S.inputTitle>
-                <S.inputWrap>
-                  <S.Input
-                    type="password"
-                    required
-                    value={checkPassword}
-                    onChange={(e) => setCheckPassword(e.target.value)}
-                    ref={pwRef}
-                    placeholder="비밀번호를 한 번 더 입력하세요"
-                  />
-                </S.inputWrap>
-                {isPwMatch || (
-                  <S.errorMessageWrap>
-                    {InvalidMessages.password}
-                  </S.errorMessageWrap>
-                )}
-              </S.contentWrap>
-              <div>
-                <S.bottomButton>가입하기</S.bottomButton>
-              </div>
-            </S.page>
-          </Modal>
-        )}
-      </form>
-      <S.headerButton onClick={onClickToggleModal}>SignUp</S.headerButton>
+              )}
+            </S.contentWrap>
+            <div>
+              <S.bottomButton style={{ marginTop: "26px" }}>가입하기</S.bottomButton>
+            </div>
+          </S.page>
+        </div>
+    </form>
     </div>
-    </ErrorBoundary>
-  );
+    <div style={{width: '100%', background:'black', opacity: '0.5', height: '100vh', position: 'absolute', left: '0px', zIndex: '9999'}} onClick={handleClickModalMask}></div>
+    </>
+  ): null;
 }
+export default SignUp;
