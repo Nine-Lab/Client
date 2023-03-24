@@ -37,7 +37,6 @@ root.render(
          <Header />
         <Suspense fallback={<div>loading...</div>}>
             <GlobalStyle />
-           
             <RouterProvider router={router} />
         </Suspense>
     </React.StrictMode>,

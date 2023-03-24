@@ -3,8 +3,6 @@ import * as S from "./Styled";
 import axios from "axios";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from 'react-router-dom';
-
 interface LoginProps {
     isLoginOpen: boolean;
     onCloseModal?: () => void;
