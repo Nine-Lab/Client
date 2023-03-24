@@ -51,19 +51,25 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
     }
   }, [password, checkPassword]);
 
+
+
   const signupAPI = useCallback(async () => {
     try {
-      // console.log("성공");
+      console.log("성공");
       const response = await axios.post(
         "https://server-git-dev-server-nine-lab.vercel.app/api/users/register",
         { name, email, password }
+        
       );
       const { token } = response.data;
       Cookies.set("token", token, { httpOnly: true });
-      setOpenModal(false)
+      
       alert("회원가입이 완료되었습니다.");
+      onCloseModal?.();
+      // setOpenModal(false) d/c
+      
     } catch (err) {
-      // console.log("실패");
+      console.log("실패");
       alert("이미 사용중인 이메일입니다.");
     }
   }, [name, email, password]);
@@ -81,9 +87,18 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
     }
   };
 
+  // 회원가입 모달 중간에 나가면 리셋
+  const resetForm = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setCheckPassword('');
+  };
+
   const handleClickModalMask = () => {
-    onCloseModal?.()
-  }
+    resetForm();
+    onCloseModal?.();
+  };
 
   return isSignupOpen ? (
     <>

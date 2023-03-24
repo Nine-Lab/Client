@@ -2,13 +2,28 @@ import React, { FC, useState, useCallback } from "react";
 import * as S from "./Styled";
 import axios from "axios";
 import Cookies from "js-cookie";
-
+import jwt_decode from "jwt-decode";
 interface LoginProps {
     isLoginOpen: boolean;
     onCloseModal?: () => void;
 }
+//
+interface DecodedToken {
+    userId:string;
+}
+//쿠키에 저장된 JWT 토큰에서 userId를 가져오는 기능
+const getUserId = () => {
+    const token = Cookies.get("token"); // 쿠키에서 토큰을 검색
+    if (token) { //토큰이 발견되면 토큰을 디코딩하고 userId를 추출
+        const decoded: DecodedToken = jwt_decode(token)
+        const { userId } = decoded;
+        return userId;
+    }
+    // 토큰을 찾을 수 없으면 null을 반환
+    return null;
+}
+
 const Login:FC<LoginProps> = ({isLoginOpen, onCloseModal}) => {
-    console.log({isLoginOpen})
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
     const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -17,17 +32,25 @@ const Login:FC<LoginProps> = ({isLoginOpen, onCloseModal}) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-  //****** 로그인 API ///
+    // const navigate = useNavigate()
+
+  //* 로그인 API
     const loginAPI = useCallback(async (email: string, password: string) => {
     try {
         console.log("성공");
-        const response = await axios.post(
+        const response = await axios.post(  //이메일 및 암호와 함께 로그인 API로 POST 요청
             "https://server-git-dev-server-nine-lab.vercel.app/api/users/login",
             { email, password },
         );
-        const { token } = response.data;
-        Cookies.set("token", token, { httpOnly: true });
-        setOpenModal(false);
+        const { token } = response.data; //API 응답에서 JWT 토큰 추출
+        Cookies.set("token", token); //쿠키 토큰에 저장
+        const userId = getUserId(); //JWT 토큰에서 userId를 검색
+        if(userId) { // userId가 발견되면 콘솔에 기록
+            console.log("Logged in user ID:", userId)
+        }
+        console.log(response.data); //API 응답 데이터를 콘솔에 기록
+        onCloseModal?.();
+        window.location.replace("/") //새로고침
     } catch (err) {
         console.log("실패");
         alert("이메일 또는 비밀번호를 확인해주세요.");
@@ -43,11 +66,18 @@ const Login:FC<LoginProps> = ({isLoginOpen, onCloseModal}) => {
         },
         [email, password],
     );
-    //*************
+    //**
 
+    // 모달 중간에 나가면 정보 삭제
+    const resetForm = () => {
+        setEmail('');
+        setPassword('');
+    };
     const handleClickModalMask = () => {
-    onCloseModal?.()
+        resetForm();
+        onCloseModal?.();
     }
+
     return isLoginOpen ? (
     <>
     <div style={{width: '500px', height: '500px', position: "absolute", left: 'calc(50% - 250px)', top: 'calc(50vh - 250px)', zIndex: '10000'}}>

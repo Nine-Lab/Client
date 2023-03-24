@@ -1,13 +1,5 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
-
-const Title = styled.h1`
-    font-size: 40px;
-    margin-top: 70px;
-    margin-bottom: 60px;
-    position: absolute;
-`;
-
 interface ModalDefaultType {
     onClickToggleModal: () => void;
 }
@@ -18,7 +10,6 @@ export default function Modal({
 }: PropsWithChildren<ModalDefaultType>) {
     return (
         <ModalContainer>
-            <Title></Title>
             <DialogBox>{children}</DialogBox>
             <Backdrop
                 onClick={(e: React.MouseEvent) => {

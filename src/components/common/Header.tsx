@@ -1,60 +1,64 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import { createSvgIcon } from '@mui/material/utils';
-import Login from "../auth/Login"
-import SignUp from "../auth/SignUp"
-import {useState, useCallback } from 'react';
-import Box from '@mui/material/Box';
+import Login from "../auth/Login";
+import SignUp from "../auth/SignUp";
+import Cookies from "js-cookie";
 
 const HomeIcon = createSvgIcon(
-  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />,'Home',
-)
-
+  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />, 'Home',
+);
 export default function Header() {
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
-  
   const [isSignupOpen, setIsSignupOpen] = useState<boolean>(false);
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (Cookies.get("token")) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const handleClickSignup = () => {
     setIsSignupOpen(!isSignupOpen);
-  }
+  };
 
   const handleClickLogin = () => {
     setIsLoginOpen(!isLoginOpen);
-  }
+  };
 
+  const logoutSubmit = () => {
+      Cookies.remove("token");
+      alert("로그아웃 완료하였습니다.")
+      console.log("로그아웃 완료");
+      setIsLoggedIn(false);
+      window.location.replace("/")
+  }
+  
   return (
     <>
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '& > *': {
-          m: 1,
-        },
-      }}
-    ></Box>
-    <div style={{textAlign: "right"}}>
-      <ButtonGroup variant="text" aria-label="text button group">
-        <Button href="/">
-          <HomeIcon color="primary" />
-        </Button>
-        <React.Fragment>
-        <Button onClick={() => handleClickLogin()}>LOGIN</Button>
-        <Button href="/review">Review</Button>
-        <Button href="/">MYPAGE</Button>
-        <Button onClick={() => handleClickSignup()}>JOIN</Button>
-        </React.Fragment>
-      </ButtonGroup>
-      <SignUp isSignupOpen={isSignupOpen} onCloseModal={() => setIsSignupOpen(false)}/>
-      <Login isLoginOpen={isLoginOpen} onCloseModal={() => setIsLoginOpen(false)}/>
-    </div>
+      <div style={{ textAlign: "right", overflow: "hidden", minHeight: 0, display: "inline-flex", alignItems: "center" }}>
+          <Button href="/">
+            <HomeIcon color="primary" />
+          </Button>
+          {isLoggedIn ? (
+            <>
+              <Button onClick={logoutSubmit}>LOGOUT</Button>
+              <Button href="/profile">My Page</Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={() => handleClickLogin()}>LOGIN</Button>
+              <Button onClick={() => handleClickSignup()}>JOIN</Button>
+              <Button href="/review">Review</Button>
+            </>
+          )}
+        <SignUp isSignupOpen={isSignupOpen} onCloseModal={() => setIsSignupOpen(false)} />
+        <Login isLoginOpen={isLoginOpen} onCloseModal={() => setIsLoginOpen(false)} />
+      </div>
     </>
   );
-}
+};
