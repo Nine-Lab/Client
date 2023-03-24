@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import data from "../../api/data/data.json";
+import data from "../../api/data/wram.json";
 
 interface Location {
     rank: any;
     gu: string;
-    dust: any;
+    budget: any;
 }
 
 const style = {
@@ -19,7 +18,7 @@ const style = {
 };
 
 console.log(data);
-export const DustList = () => {
+export const WarmList = () => {
     return (
         <>
             <div>
@@ -37,7 +36,7 @@ export const DustList = () => {
                                         ${location.rank} 
                                         등 
                                         수치:  
-                                        ${location.dust}                                        
+                                        ${location.budget}                                        
                                     `}
                                     />
                                 </ListItem>
