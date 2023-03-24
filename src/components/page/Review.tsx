@@ -130,17 +130,18 @@ const Review = () => {
 
     const ReviewAPI = useCallback(async () => {
         try {
-            console.log("성공");
-            const response = await axios.post(
+            await axios.post(
                 "https://server-git-dev-server-nine-lab.vercel.app/api/reviews",
                 { userId, guId, dongId, title, contents, satisfactionLevel },
             );
             setOpenModal(false);
+            console.log("성공");
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
             console.log(err);
             alert("정상적으로 등록되지 않았습니다!");
         }
+        console.log(userId);
     }, [userId, guId, dongId, title, contents, satisfactionLevel]);
 
     const reviewSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -158,7 +159,6 @@ const Review = () => {
             ).then(res => {
                 setPosts(res.data);
                 setLoading(false);
-                alert("불러오기 성공");
             })
     }, []);
 
@@ -226,9 +226,6 @@ const Review = () => {
                                 <S.satisfactionLevelGuide>
                                     <div>※매우 불만족: 1점, 조금 불만족: 2점, 보통: 3점, 조금 좋음: 4점, 매우 좋음: 5점</div>
                                 </S.satisfactionLevelGuide>
-                                <S.inputWrap>
-                                    <S.reviewInput type='text' required value={userId} onChange={checkUserId}/>
-                                </S.inputWrap>   
                                 <div>
                                     <S.reviewButton>리뷰 업로드</S.reviewButton>
                                 </div>
