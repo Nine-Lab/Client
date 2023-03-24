@@ -36,7 +36,7 @@ const CarouselSection3 = () => {
                             sx={{ marginBottom: "1rem" }}
                         >
                             서울, <br />
-                            어디가 안전할까?
+                            침수예방 어때?
                         </Typography>
                         <Typography
                             variant="subtitle1"
@@ -53,14 +53,11 @@ const CarouselSection3 = () => {
                         </Typography>
                         <SubInfoContainer>
                             <Typography variant="subtitle1" gutterBottom>
-                                홍수의 위험성에 대한 인식을 높이기 위해 홍수
-                                조절 인프라를 구축하며
+                                침수는 자연재해로 건물이나 도로, 지반이 물에 잠기는 것을 말합니다.
                                 <br />
-                                주거환경에 미치는 홍수의 영향을 완화하기 위한
-                                다양한 조치가 시행되고 있습니다.
+                                해일, 쓰나미 등으로 육지가 물에 잠기는 것도 이에 해당합니다.
                                 <br />
-                                이러한 노력에도 불구하고, 홍수는 우리나라의
-                                중요한 과제로 남아 있습니다.
+                                상기한 재난으로 지반이 침하되어 영구적으로 가라앉기도 합니다.
                             </Typography>
                         </SubInfoContainer>
                     </Grid>

@@ -34,8 +34,8 @@ const CarouselSection2 = () => {
                             gutterBottom
                             sx={{ margin: "0" }}
                         >
-                            서울살이, <br />
-                            얼마나 만족하시나요?
+                            서울, <br />
+                            미세먼지 어때?
                         </Typography>
 
                         <br />
