@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
     body {
         font-family: 'NanumSquare', sans-serif;
         transition: color,background 0.25s ease-in;        
+        overflow-y:hidden;
+        background: #2980b9;
+    background: -webkit-linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
+    background: linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
     }
 
     html,body {
@@ -34,6 +38,16 @@ export const GlobalStyle = createGlobalStyle`
     img {
         width: 100%;
         height: 100%;
+    }
+    .header { 
+        color: white !important;
+        a {
+            color: #fff !important;
+        }
+        button {
+            color: #fff !important;
+
+        }
     }
 
     /*  캐러셀 styles 많아지면 분리 예정 */

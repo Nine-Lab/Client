@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
+import ChartCotainer from "../chart/ChartData2";
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -13,15 +14,15 @@ const CarouselContainer = styled("div")`
 `;
 
 const SubInfoContainer = styled("div")`
-    display: flex;
-    position: absolute;
+    /* display: flex; */
+    /* position: absolute; */
 `;
 
 const CarouselSection3 = () => {
     return (
         <CarouselContainer>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid
                         xs={8}
                         sx={{
@@ -63,18 +64,16 @@ const CarouselSection3 = () => {
                             </Typography>
                         </SubInfoContainer>
                     </Grid>
+
                     <Grid
-                        xs={5}
+                        xs={6}
                         sx={{
                             position: "absolute",
                             right: "1rem",
-                            marginTop: "3rem",
+                            // marginTop: "3rem",
                         }}
                     >
-                        <img
-                            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990E304C5AD48CD833"
-                            alt="그래프"
-                        />
+                        <ChartCotainer />
                     </Grid>
                 </Grid>
             </Box>
