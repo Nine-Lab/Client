@@ -8,9 +8,7 @@ interface PostsProps{
 
 const Posts: FC<PostsProps> = ({posts, loading}) => {
     useEffect(() => {
-        console.log(posts)
     },[posts])
-
 
 
     return (

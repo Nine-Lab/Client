@@ -3,7 +3,7 @@ import styled from 'styled-components';
 /* 모달 안 회색창 */
 export const page = styled.div`
   position: absolute;
-  top: 10;
+  top: 0;
   bottom: 0;
   width: 100%;
   max-width: 500px;
@@ -87,14 +87,14 @@ export const reviewContent = styled.textarea`
   width: 100%;
   height: 500px;
   outline: none;
-  border: none;
+  border: 1px black;
   height: 17px;
   font-size: 14px;
   font-weight: 400;
   line-height: 27px;
     /* padding: 5px 0; */
   resize: none;
-  border: none;
+  border: 1px;
   font-family: 'Roboto', sans-serif;
 `;
 export const reviewContentWrap = styled.div`
@@ -108,7 +108,7 @@ export const reviewContentWrap = styled.div`
   margin-left: 100px;
   margin-top: -33px;
   background-color: white;
-  /* border: 1px solid #e2e0e0;     */
+  border: 1px solid #e2e0e0;    
 `;
 
 /* 확인 버튼 */
@@ -145,7 +145,7 @@ export const reviewButton  = styled.button`
   background-color: #81c6e8;
   color: white;
   position: absolute;
-  bottom: 30px;
+  bottom: 0;
   left: 70px;
   cursor: pointer;
 

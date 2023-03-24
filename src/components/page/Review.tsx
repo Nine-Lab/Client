@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -7,10 +8,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import * as S from "../auth/Styled";
-import Modal from "../auth/Modal";
+import ReviewModal from "../review/ReviewModal";
 import Posts from "../review/Posts";
 
 import ErrorBoundary from "../common/ErrorBoundary";
@@ -51,7 +50,7 @@ const MapContainer = styled("div")`
 
 const Comment = styled.button`
     width: 40%;
-    margin-top: 80px;
+    margin-top: 40px;
     height: 40px;
     border-color: black;
     border-radius: 7px;
@@ -137,17 +136,18 @@ const Review = () => {
 
     const ReviewAPI = useCallback(async () => {
         try {
-            console.log("성공");
-            const response = await axios.post(
+            await axios.post(
                 "https://server-git-dev-server-nine-lab.vercel.app/api/reviews",
                 { userId, guId, dongId, title, contents, satisfactionLevel },
             );
             setOpenModal(false);
+            console.log("성공");
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
             console.log(err);
             alert("정상적으로 등록되지 않았습니다!");
         }
+        console.log(userId);
     }, [userId, guId, dongId, title, contents, satisfactionLevel]);
 
     const reviewSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -166,11 +166,19 @@ const Review = () => {
             .then(res => {
                 setPosts(res.data);
                 setLoading(false);
-                alert("불러오기 성공");
-            });
+            })
     }, []);
 
     console.log(posts);
+
+    const [offset, setOffset] = useState(0); // 백엔드에 요청할 데이터 순서 정보
+    // offset 이후 순서의 데이터부터 10개씩 데이터를 받아올 것임
+    const [target, setTarget] = useState(null); // 관찰대상 target
+    const [isLoaded, setIsLoaded] = useState(null); // Load 중인가를 판별하는 boolean
+    // 요청이 여러번 가는 것을 방지하기 위해서
+    const [stop, setStop] = useState(false); // 마지막 데이터까지 다 불러온 경우 더이상 요청을
+    // 마지막 부분까지 가버릴 때 계속 요청을 보내는 것 방지
+
 
     return (
         <ErrorBoundary fallback={Error}>
@@ -190,7 +198,7 @@ const Review = () => {
                         <Posts posts={posts} loading={loading} />
                         <div>
                             {isOpenModal && (
-                                <Modal onClickToggleModal={onClickToggleModal}>
+                                <ReviewModal onClickToggleModal={onClickToggleModal}>
                                     <form onSubmit={reviewSubmit}>
                                         <S.page>
                                             <S.title>구 이름</S.title>
@@ -207,12 +215,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {guId
                                                     ? isGuIdVaild || (
-                                                          <div>
-                                                              {
-                                                                  InvaildMessages.guId
-                                                              }
-                                                          </div>
-                                                      )
+                                                        <div>
+                                                            {
+                                                                InvaildMessages.guId
+                                                            }
+                                                        </div>
+                                                    )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>동 이름</S.title>
@@ -229,12 +237,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {dongId
                                                     ? isDongIdVaild || (
-                                                          <div>
-                                                              {
-                                                                  InvaildMessages.dongId
-                                                              }
-                                                          </div>
-                                                      )
+                                                        <div>
+                                                            {
+                                                                InvaildMessages.dongId
+                                                            }
+                                                        </div>
+                                                    )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>제목</S.title>
@@ -309,7 +317,7 @@ const Review = () => {
                                             </div>
                                         </S.page>
                                     </form>
-                                </Modal>
+                                </ReviewModal>
                             )}
                         </div>
                         <Comment onClick={onClickToggleModal}>
