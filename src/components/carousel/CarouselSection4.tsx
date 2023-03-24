@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
-import ChartCotainer from "../chart/chartData3";
+import ChartCotainer from "../chart/ChartData3";
 
 const CarouselContainer = styled("div")`
     width: 100%;
