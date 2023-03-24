@@ -5,6 +5,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
+import Login from "components/auth/Login";
 
 const CarouselContainer = styled("div")`
     width: 100%;
