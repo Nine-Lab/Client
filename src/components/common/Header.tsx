@@ -40,7 +40,7 @@ export default function Header() {
   
   return (
     <>
-      <div style={{ textAlign: "right", overflow: "hidden", minHeight: 0, display: "inline-flex", alignItems: "center" }}>
+      <div style={{ textAlign: "right" }}>
           <Button href="/">
             <HomeIcon color="primary" />
           </Button>
@@ -53,9 +53,9 @@ export default function Header() {
             <>
               <Button onClick={() => handleClickLogin()}>LOGIN</Button>
               <Button onClick={() => handleClickSignup()}>JOIN</Button>
-              <Button href="/review">Review</Button>
             </>
           )}
+          <Button href="/review">Review</Button>
         <SignUp isSignupOpen={isSignupOpen} onCloseModal={() => setIsSignupOpen(false)} />
         <Login isLoginOpen={isLoginOpen} onCloseModal={() => setIsLoginOpen(false)} />
       </div>

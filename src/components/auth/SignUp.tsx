@@ -5,10 +5,9 @@ import Cookies from "js-cookie";
 
 interface SignUpProps {
   isSignupOpen: boolean;
-  onCloseModal?: () => void; 
+  onCloseModal?: () => void;
 }
 const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
-  console.log({isSignupOpen})
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
@@ -31,6 +30,7 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
     email: "유효하지 않은 이메일 형식입니다",
     password: "비밀번호가 일치하지 않습니다"
   };
+
 // 이름 유효성 검사
   const checkName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const nameRegex = /^[가-힣]{2,6}$/;
@@ -51,23 +51,15 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
     }
   }, [password, checkPassword]);
 
-
-
   const signupAPI = useCallback(async () => {
     try {
-      console.log("성공");
       const response = await axios.post(
         "https://server-git-dev-server-nine-lab.vercel.app/api/users/register",
-        { name, email, password }
-        
-      );
+        { name, email, password });
       const { token } = response.data;
-      Cookies.set("token", token, { httpOnly: true });
-      
+      Cookies.set("token", token);
       alert("회원가입이 완료되었습니다.");
       onCloseModal?.();
-      // setOpenModal(false) d/c
-      
     } catch (err) {
       console.log("실패");
       alert("이미 사용중인 이메일입니다.");
@@ -86,15 +78,13 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
       signupAPI();
     }
   };
-
-  // 회원가입 모달 중간에 나가면 리셋
+  // 모달 중간에 나가면 정보 삭제
   const resetForm = () => {
     setName('');
     setEmail('');
     setPassword('');
     setCheckPassword('');
   };
-
   const handleClickModalMask = () => {
     resetForm();
     onCloseModal?.();
