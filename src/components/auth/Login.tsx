@@ -17,15 +17,25 @@ export default function Login() {
     const [password, setPassword] = useState<string>("");
 
     //****** 로그인 API
+    // * test1@test.com , 12341234
     const loginAPI = useCallback(async (email: string, password: string) => {
         try {
             console.log("성공");
             const response = await axios.post(
-                "https://shiny-shea-devhwann.koyeb.app/api/users/login",
+                "http://localhost:8001/api/users/login",
                 { email, password },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                },
             );
             const { token } = response.data;
-            Cookies.set("token", token, { httpOnly: true });
+            console.log(response.data);
+            // Cookies.set("token", token, { httpOnly: true });
+            // Set.Cookie("id", response.data.token); // 쿠키에 토큰 저장
+            // Storage.setToken(response.data.token);
+
             setOpenModal(false);
         } catch (err) {
             console.log("실패");

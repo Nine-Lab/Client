@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -6,13 +6,124 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
+import { BackGroundContainer } from "./Main";
+import SimpleMap from "components/map/map";
+import { RateList } from "components/rank/RateList";
+import { DustList } from "components/rank/DustList";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+// import BasicTabs from "components/tab/MapOnTab";
+import BasicTabs from "components/tab/MapOnTab";
+
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
+function a11yProps(index: number) {
+    return {
+        id: `simple-tab-${index}`,
+        "aria-controls": `simple-tabpanel-${index}`,
+    };
+}
+
+function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+const style = {
+    width: "100%",
+    maxWidth: 360,
+    bgcolor: "background.paper",
+};
+
+const Hood = () => {
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+    };
+
+    return (
+        <BackGroundContainer>
+            <CarouselContainer>
+                <InfoContainer>
+                    <TabPanel value={value} index={0}>
+                        <Typography
+                            variant="h5"
+                            gutterBottom
+                            sx={{ paddingTop: "3rem" }}
+                        >
+                            미세먼지 순위
+                        </Typography>
+                        <DustList />
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        <Typography
+                            variant="h5"
+                            gutterBottom
+                            sx={{ paddingTop: "3rem" }}
+                        >
+                            침수위험지구 순위
+                        </Typography>
+                        <DustList />
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        <Typography
+                            variant="h5"
+                            gutterBottom
+                            sx={{ paddingTop: "3rem" }}
+                        >
+                            생활환경 만족도 순위
+                        </Typography>
+                        <RateList />
+                    </TabPanel>
+                </InfoContainer>
+                <MapContainer>
+                    {/* <Box sx={{ maxWidth: 120, marginLeft: "auto" }}> */}
+                    <Box sx={{ width: "100%" }}>
+                        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                aria-label="basic tabs example"
+                            >
+                                <Tab label="Item One" {...a11yProps(0)} />
+                                <Tab label="Item Two" {...a11yProps(1)} />
+                                <Tab label="Item Three" {...a11yProps(2)} />
+                            </Tabs>
+                        </Box>
+                    </Box>
+                    {/* <BasicTabs /> */}
+                    {/* <SimpleMap /> */}
+                    <TabPanel value={value} index={0}>
+                        <SimpleMap />
+                    </TabPanel>
+                </MapContainer>
+            </CarouselContainer>
+        </BackGroundContainer>
+    );
+};
+
+export default Hood;
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -33,6 +144,7 @@ const InfoContainer = styled("div")`
     border-radius: 7px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-align: center;
+    overflow-y: scroll;
 `;
 
 const MapContainer = styled("div")`
@@ -45,67 +157,52 @@ const MapContainer = styled("div")`
     border-radius: 7px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 `;
-const style = {
-    width: "100%",
-    maxWidth: 360,
-    bgcolor: "background.paper",
-};
-const Hood = () => {
-    return (
-        <CarouselContainer>
-            <InfoContainer>
-                <Typography
-                    variant="h5"
-                    gutterBottom
-                    sx={{ paddingTop: "3rem" }}
-                >
-                    미세먼지 순위
-                </Typography>
-                <List sx={style} component="nav" aria-label="mailbox folders">
-                    <ListItem button>
-                        <ListItemText primary="강남구" secondary="수치 : 89" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button divider>
-                        <ListItemText primary="성동구" secondary="수치 : 59" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemText primary="NewYork" secondary="수치 : 39" />
-                    </ListItem>
-                    <Divider light />
-                    <ListItem button>
-                        <ListItemText primary="중랑구" secondary="수치 : 29" />
-                    </ListItem>
-                </List>
-            </InfoContainer>
-            <MapContainer>
-                <Box sx={{ maxWidth: 120, marginLeft: "auto" }}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">
-                            분류
-                        </InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            // value={age}
-                            label="미세먼지"
-                            // onChange={handleChange}
-                        >
-                            <MenuItem value={10}>미세먼지</MenuItem>
-                            <MenuItem value={20}>침수</MenuItem>
-                            <MenuItem value={30}>주거만족도</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <img
-                    src="https://o.quizlet.com/eQhzxacEbGo.4lPgJgz4DQ_b.png"
-                    alt=""
-                    width={400}
-                    height={300}
-                />
-            </MapContainer>
-        </CarouselContainer>
-    );
-};
 
-export default Hood;
+// import * as React from "react";
+// import Tabs from "@mui/material/Tabs";
+// import Tab from "@mui/material/Tab";
+// import Typography from "@mui/material/Typography";
+// import Box from "@mui/material/Box";
+// import { DustList } from "components/rank/DustList";
+// import SimpleMap from "components/map/map";
+
+// function a11yProps(index: number) {
+//     return {
+//         id: `simple-tab-${index}`,
+//         "aria-controls": `simple-tabpanel-${index}`,
+//     };
+// }
+
+// export default function BasicTabs() {
+//     const [value, setValue] = React.useState(0);
+
+//     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+//         setValue(newValue);
+//     };
+
+//     return (
+//         <Box sx={{ width: "100%" }}>
+//             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+//                 <Tabs
+//                     value={value}
+//                     onChange={handleChange}
+//                     aria-label="basic tabs example"
+//                 >
+//                     <Tab label="Item One" {...a11yProps(0)} />
+//                     <Tab label="Item Two" {...a11yProps(1)} />
+//                     <Tab label="Item Three" {...a11yProps(2)} />
+//                 </Tabs>
+//             </Box>
+//             <TabPanel value={value} index={0}>
+//                 <SimpleMap />
+
+//             </TabPanel>
+//             <TabPanel value={value} index={1}>
+//                 <DustList />
+//             </TabPanel>
+//             <TabPanel value={value} index={2}>
+//                 <SimpleMap />
+//             </TabPanel>
+//         </Box>
+//     );
+// }

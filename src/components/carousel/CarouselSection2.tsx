@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
+import ChartCotainer from "../chart/chartData";
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -69,17 +70,14 @@ const CarouselSection2 = () => {
                         </SubInfoContainer>
                     </Grid>
                     <Grid
-                        xs={5}
+                        xs={6}
                         sx={{
                             position: "absolute",
                             right: "1rem",
-                            marginTop: "3rem",
+                            // marginTop: "3rem",
                         }}
                     >
-                        <img
-                            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990E304C5AD48CD833"
-                            alt="그래프"
-                        />
+                        <ChartCotainer />
                     </Grid>
                 </Grid>
             </Box>

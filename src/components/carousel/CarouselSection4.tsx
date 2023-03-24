@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
+import ChartCotainer from "../chart/chartData3";
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -20,8 +21,9 @@ const CarouselSection4 = () => {
                     <Grid
                         xs={7}
                         sx={{
-                            height: "450px",
-                            paddingLeft: "10rem",
+                            // height: "450px",
+                            width: "80%",
+                            margin: "auto",
                         }}
                     >
                         <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
@@ -35,20 +37,16 @@ const CarouselSection4 = () => {
                         >
                             내가 살고픈 '서울 자치구'는?
                         </Typography>
+                        <ChartCotainer />
                     </Grid>
-                    <Grid
+                    {/* <Grid
                         xs={5}
                         sx={{
                             position: "absolute",
                             right: "1rem",
                             marginTop: "3rem",
                         }}
-                    >
-                        <img
-                            src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F990E304C5AD48CD833"
-                            alt="그래프"
-                        />
-                    </Grid>
+                    ></Grid> */}
                 </Grid>
             </Box>
         </CarouselContainer>

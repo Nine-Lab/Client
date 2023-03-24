@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import MainCarousel from "components/carousel/MainCarousel";
-
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
 
@@ -42,6 +41,7 @@ const Main = () => {
                 <CarouselContainer>
                     <CardContainer>
                         <MainCarousel />
+                        {/* <ChartCotainer /> */}
                     </CardContainer>
                 </CarouselContainer>
             </BackGroundContainer>
