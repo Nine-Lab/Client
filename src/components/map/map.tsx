@@ -12,11 +12,6 @@ import seoulMap from "../../api/data/seoul.json";
 
 const data = seoulMap;
 
-// const config: {
-//     test: [(a: number) => {}, (a: number, b: string) => {}];
-// };
-// let sub9: Array<{ a: string; b: number }> = [{ a: "", b: 1 }];
-
 type Props = {
     zoom: any;
 };
