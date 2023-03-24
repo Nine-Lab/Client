@@ -145,7 +145,7 @@ export const reviewButton  = styled.button`
   background-color: #81c6e8;
   color: white;
   position: absolute;
-  bottom: 30px;
+  bottom: 0;
   left: 70px;
   cursor: pointer;
 

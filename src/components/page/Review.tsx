@@ -50,7 +50,7 @@ const MapContainer = styled("div")`
 
 const Comment = styled.button`
     width: 40%;
-    margin-top: 80px;
+    margin-top: 40px;
     height: 40px;
     border-color: black;
     border-radius: 7px;
@@ -198,7 +198,7 @@ const Review = () => {
                         <Posts posts={posts} loading={loading} />
                         <div>
                             {isOpenModal && (
-                                <Modal onClickToggleModal={onClickToggleModal}>
+                                <ReviewModal onClickToggleModal={onClickToggleModal}>
                                     <form onSubmit={reviewSubmit}>
                                         <S.page>
                                             <S.title>구 이름</S.title>
@@ -215,12 +215,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {guId
                                                     ? isGuIdVaild || (
-                                                          <div>
-                                                              {
-                                                                  InvaildMessages.guId
-                                                              }
-                                                          </div>
-                                                      )
+                                                        <div>
+                                                            {
+                                                                InvaildMessages.guId
+                                                            }
+                                                        </div>
+                                                    )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>동 이름</S.title>
@@ -237,12 +237,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {dongId
                                                     ? isDongIdVaild || (
-                                                          <div>
-                                                              {
-                                                                  InvaildMessages.dongId
-                                                              }
-                                                          </div>
-                                                      )
+                                                        <div>
+                                                            {
+                                                                InvaildMessages.dongId
+                                                            }
+                                                        </div>
+                                                    )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>제목</S.title>
@@ -317,7 +317,7 @@ const Review = () => {
                                             </div>
                                         </S.page>
                                     </form>
-                                </Modal>
+                                </ReviewModal>
                             )}
                         </div>
                         <Comment onClick={onClickToggleModal}>
