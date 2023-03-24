@@ -9,19 +9,22 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
 import { BackGroundContainer } from "./Main";
-import SimpleMap from "components/map/map";
+import SimpleMap from "components/map/Map";
 import { RateList } from "components/rank/RateList";
 import { DustList } from "components/rank/DustList";
+import { WarmList } from "components/rank/WarmList";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 // import BasicTabs from "components/tab/MapOnTab";
 import BasicTabs from "components/tab/MapOnTab";
+import seoulMap from "../../api/data/seoul.json";
 
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
 }
+
 function a11yProps(index: number) {
     return {
         id: `simple-tab-${index}`,
@@ -57,6 +60,10 @@ const style = {
 
 const Hood = () => {
     const [value, setValue] = React.useState(0);
+    const [currentState, setCurrentState] = useState({
+        map: seoulMap,
+        center: [126.986, 37.561],
+    });
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -73,6 +80,8 @@ const Hood = () => {
                             sx={{ paddingTop: "3rem" }}
                         >
                             미세먼지 순위
+                            <br />
+                            <Typography variant="h6"> (단위: 평균) </Typography>
                         </Typography>
                         <DustList />
                     </TabPanel>
@@ -82,9 +91,14 @@ const Hood = () => {
                             gutterBottom
                             sx={{ paddingTop: "3rem" }}
                         >
-                            침수위험지구 순위
+                            침수예산 순위
+                            <br />
+                            <Typography variant="h6">
+                                {" "}
+                                (단위: 백만원){" "}
+                            </Typography>
                         </Typography>
-                        <DustList />
+                        <WarmList />
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <Typography
@@ -92,7 +106,8 @@ const Hood = () => {
                             gutterBottom
                             sx={{ paddingTop: "3rem" }}
                         >
-                            생활환경 만족도 순위
+                            생활환경 만족도 순위 <br />
+                            <Typography variant="h6"> (단위: 평균) </Typography>
                         </Typography>
                         <RateList />
                     </TabPanel>
@@ -113,7 +128,13 @@ const Hood = () => {
                         </Box>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <SimpleMap />
+                        <SimpleMap currentState={currentState} />
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        <SimpleMap currentState={currentState} />
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        <SimpleMap currentState={currentState} />
                     </TabPanel>
                 </MapContainer>
             </CarouselContainer>

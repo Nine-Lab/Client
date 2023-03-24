@@ -28,6 +28,7 @@ const chartData = {
             tension: 0.1,
             backgroundColor: "#36A2EB",
         },
+
         {
             label: "교육환경",
             // display: true,
