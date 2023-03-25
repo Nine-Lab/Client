@@ -188,7 +188,7 @@ const Review = () => {
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
             console.log(err);
-            alert("정상적으로 등록되지 않았습니다!");
+            alert("로그인이 필요한 서비스입니다!");
         }
         console.log(userId);
     }, [userId, guId, dongId, title, contents, satisfactionLevel]);
@@ -347,24 +347,6 @@ const Review = () => {
                     </InfoContainer>
 
                     <MapContainer>
-                        <Box sx={{ maxWidth: 120, marginLeft: "auto" }}>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                    분류
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    // value={age}
-                                    label="미세먼지"
-                                    // onChange={handleChange}
-                                >
-                                    <MenuItem value={10}>미세먼지</MenuItem>
-                                    <MenuItem value={20}>침수</MenuItem>
-                                    <MenuItem value={30}>주거만족도</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
                         <TabPanel value={value} index={0}>
                             <SimpleMap currentState={currentState} />
                         </TabPanel>
