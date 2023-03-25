@@ -188,7 +188,7 @@ const Review = () => {
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
             console.log(err);
-            alert("정상적으로 등록되지 않았습니다!");
+            alert("로그인이 필요한 서비스입니다!");
         }
         console.log(userId);
     }, [userId, guId, dongId, title, contents, satisfactionLevel]);
