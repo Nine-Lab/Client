@@ -13,7 +13,7 @@ import Select from "@mui/material/Select";
 import * as S from "../auth/Styled";
 import ReviewModal from "../review/ReviewModal";
 import Posts from "../review/Posts";
-import SimpleMap from "components/map/map";
+import SimpleMap from "components/map/Map";
 
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
