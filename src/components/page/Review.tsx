@@ -213,6 +213,10 @@ const Review = () => {
 
     // 지도 관련
     const [value, setValue] = React.useState(0);
+    const [currentState, setCurrentState] = useState({
+                map: seoulMap,
+        center: [126.986, 37.561],
+         });
 
     return (
         <ErrorBoundary fallback={Error}>
