@@ -367,7 +367,7 @@ const Review = () => {
                             </FormControl>
                         </Box>
                         <TabPanel value={value} index={0}>
-                            <SimpleMap />
+                            <SimpleMap currentState={currentState} />
                         </TabPanel>
                     </MapContainer>
                 </CarouselContainer>
