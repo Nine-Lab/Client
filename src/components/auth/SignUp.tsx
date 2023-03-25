@@ -114,7 +114,7 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
                   ? isNameValid || <div>{InvalidMessages.name}</div>
                   : null}
               </S.errorMessageWrap>
-              <S.inputTitle style={{ marginTop: "26px" }}>
+              <S.inputTitle style={{ marginTop: "20px" }}>
                 이메일 주소
               </S.inputTitle>
               <S.inputWrap>
@@ -132,7 +132,7 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
                   ? isEmailValid || <div>{InvalidMessages.email}</div>
                   : null}
               </S.errorMessageWrap>
-              <S.inputTitle style={{ marginTop: "26px" }}>
+              <S.inputTitle style={{ marginTop: "20px" }}>
                 비밀번호
               </S.inputTitle>
               <S.inputWrap>
@@ -144,7 +144,7 @@ const SignUp:FC<SignUpProps> = ({isSignupOpen, onCloseModal}) => {
                   placeholder="비밀번호를 입력하세요(8글자 이상)"
                 />
               </S.inputWrap>
-              <S.inputTitle style={{ marginTop: "26px" }}>
+              <S.inputTitle style={{ marginTop: "20px" }}>
                 비밀번호 재확인
               </S.inputTitle>
               <S.inputWrap>

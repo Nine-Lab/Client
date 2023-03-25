@@ -26,9 +26,9 @@ const CarouselSection4 = () => {
                             margin: "auto",
                         }}
                     >
-                        <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
+                        {/* <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
                             생활 만족도 데이터로 살펴보는
-                        </Typography>
+                        </Typography> */}
                         <Typography
                             align="left"
                             variant="h3"

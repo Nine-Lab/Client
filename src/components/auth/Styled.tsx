@@ -19,7 +19,7 @@ export const page = styled.div`
 /* 로그인,회원가입 타이틀 텍스트 */
 export const titleWrap = styled.div`
     text-align: center;
-    margin-top: 87px;
+    margin-top: 10px;
     font-size: 26px;
     font-weight: bold;
     color: #262626;

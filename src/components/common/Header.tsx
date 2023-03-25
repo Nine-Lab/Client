@@ -64,6 +64,7 @@ export default function Header() {
                     </>
                 )}
                 <Button href="/review">Review</Button>
+                <Button href="/hood">Hood</Button>
                 <SignUp
                     isSignupOpen={isSignupOpen}
                     onCloseModal={() => setIsSignupOpen(false)}
