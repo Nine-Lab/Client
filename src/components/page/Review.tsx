@@ -347,24 +347,6 @@ const Review = () => {
                     </InfoContainer>
 
                     <MapContainer>
-                        <Box sx={{ maxWidth: 120, marginLeft: "auto" }}>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                    분류
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    // value={age}
-                                    label="미세먼지"
-                                    // onChange={handleChange}
-                                >
-                                    <MenuItem value={10}>미세먼지</MenuItem>
-                                    <MenuItem value={20}>침수</MenuItem>
-                                    <MenuItem value={30}>주거만족도</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
                         <TabPanel value={value} index={0}>
                             <SimpleMap currentState={currentState} />
                         </TabPanel>
