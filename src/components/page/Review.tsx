@@ -121,6 +121,7 @@ const Review = () => {
     const guIdRef = useRef<HTMLInputElement>(null);
     const dongIdRef = useRef<HTMLInputElement>(null);
     const titleRef = useRef<HTMLInputElement>(null);
+    const contentsRef = useRef<HTMLInputElement>(null);
 
     const [isGuIdVaild, setIsGuIdVaild] = useState<boolean>(false);
     const [isDongIdVaild, setIsDongIdVaild] = useState<boolean>(false);
@@ -221,12 +222,9 @@ const Review = () => {
                         <Typography
                             variant="h5"
                             gutterBottom
-                            sx={{ paddingTop: "1rem" }}
+                            sx={{ paddingTop: "2rem" }}
                         >
                             현지 리뷰
-                        </Typography>
-                        <Typography variant="h6" gutterBottom>
-                            용산구
                         </Typography>
                         <Posts posts={posts} loading={loading} />
                         <div>
@@ -302,19 +300,14 @@ const Review = () => {
                                             </S.reviewErrorWrap>
                                             <S.title>댓글</S.title>
                                             <S.reviewContentWrap>
-                                                <S.reviewContent
+                                                <S.reviewInput
+                                                    type="text"
                                                     required
                                                     value={contents}                                                    
                                                     onChange={
                                                         checkItemChangeHandler
                                                     }
-                                                    style={{
-                                                        height:
-                                                            (textareaHeight +
-                                                                1) *
-                                                                27 +
-                                                            "px",
-                                                    }}
+                                                    ref={contentsRef}
                                                 />
                                             </S.reviewContentWrap>
                                             <S.title>별점</S.title>
