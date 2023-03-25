@@ -14,6 +14,8 @@ import * as S from "../auth/Styled";
 import ReviewModal from "../review/ReviewModal";
 import Posts from "../review/Posts";
 import SimpleMap from "components/map/Map";
+import seoulMap from "../../api/data/seoul.json";
+
 
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
