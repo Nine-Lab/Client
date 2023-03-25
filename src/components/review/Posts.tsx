@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import styled from "styled-components";
+import { ListItem } from '@mui/material';
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 
@@ -15,10 +16,6 @@ const reviewStyle = {
     bgcolor: "background.paper",
 };
 
-const ListStyle = styled.li`
-    text-align: center;
-`
-
 const Posts: FC<PostsProps> = ({posts, loading}) => {
     useEffect(() => {
     },[posts])
@@ -31,10 +28,10 @@ const Posts: FC<PostsProps> = ({posts, loading}) => {
                 <List sx={reviewStyle} component="nav" aria-label="mailbox folders">
                     {posts && posts.map((post: any) => {
                         return (
-                            <ul>
-                                <ListStyle key={post.userId}>{post.title}:{post.content}</ListStyle>
+                            <ListItem>
+                                <li key={post.userId}>{post.title}</li>
                                 <Divider/>
-                            </ul>                        
+                            </ListItem>                        
                         )
                     })}
                 </List>                
