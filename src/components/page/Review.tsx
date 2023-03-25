@@ -218,7 +218,7 @@ const Review = () => {
     const [currentState, setCurrentState] = useState({
                 map: seoulMap,
         center: [126.986, 37.561],
-         });
+        });
 
     return (
         <ErrorBoundary fallback={Error}>
