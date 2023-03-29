@@ -15,8 +15,7 @@ import ReviewModal from "../review/ReviewModal";
 import Posts from "../review/Posts";
 import SimpleMap from "components/map/Map";
 import seoulMap from "../../api/data/seoul.json";
-
-
+r;
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
 import { BackGroundContainer } from "./Main";
@@ -96,29 +95,24 @@ function TabPanel(props: TabPanelProps) {
     );
 }
 
-
 //  샘플 레이아웃
 const Review = () => {
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
     const onClickToggleModal = useCallback(() => {
         setOpenModal(!isOpenModal);
     }, [isOpenModal]);
-    
+
     // 줄 수를 계산해서 저장할 변수
     const [textareaHeight, setTextareaHeight] = useState(0);
     // 유저 입력 값을 넣을 변수
-    const [contents, setContents] = useState<string>("");
     // 사용자 입력 값이 변경될 때마다 checkItemContent에 저장하고
     // 엔터('\n') 개수를 세서 textareaHeight에 저장
-    const checkItemChangeHandler = (event: any) => {
-        setTextareaHeight(event.target.value.split("\n").length - 1);
-        setContents(event.target.value);
-    };
 
     const [userId, setUserId] = useState<string>("");
     const [guId, setGuId] = useState<string>("");
     const [dongId, setDongId] = useState<string>("");
-    const [title, setTitle] = useState<string>("");    
+    const [content, setContent] = useState<string>("");
+    const [title, setTitle] = useState<string>("");
     const [satisfactionLevel, setSatisfactionLevel] = useState<string>("");
     const guIdRef = useRef<HTMLInputElement>(null);
     const dongIdRef = useRef<HTMLInputElement>(null);
@@ -128,6 +122,7 @@ const Review = () => {
     const [isGuIdVaild, setIsGuIdVaild] = useState<boolean>(false);
     const [isDongIdVaild, setIsDongIdVaild] = useState<boolean>(false);
     const [isTitleVaild, setIsTitleVaild] = useState<boolean>(false);
+    const [isContentVaild, setIsContentVaild] = useState<boolean>(false);
 
     const InvaildMessages = {
         guId: "2-6글자 한글로 입력해주세요!",
@@ -138,8 +133,6 @@ const Review = () => {
     interface DecodedToken {
         userId: string;
     }
-
-
 
     // 구 이름 유효성 검사
     const checkGuId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,6 +147,19 @@ const Review = () => {
             const dongIdRegex = /[ㄱ-ㅎ가-힣0-9]{2,6}/;
             setDongId(e.target.value);
             setIsDongIdVaild(dongIdRegex.test(e.target.value));
+        },
+        [],
+    );
+
+    // const checkItemChangeHandler = (event: any) => {
+    //     setTextareaHeight(event.target.value.split("\n").length - 1);
+    //     setContents(event.target.value);
+    // };
+    const checkContent = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const ContentRegex = /[a-zA-Zㄱ-ㅎ가-힣]{2,6}/;
+            setContent(e.target.value);
+            setIsContentVaild(ContentRegex.test(e.target.value));
         },
         [],
     );
@@ -181,9 +187,9 @@ const Review = () => {
             const userId = getUserId();
             const response = await axios.post(
                 "https://server-git-dev-server-nine-lab.vercel.app/api/reviews",
-                { userId, guId, dongId, title, contents, satisfactionLevel },
-            {headers: {"Content-Type": "application/json",} }             
-            )
+                { userId, guId, dongId, title, content, satisfactionLevel },
+                { headers: { "Content-Type": "application/json" } },
+            );
             setOpenModal(false);
             alert("리뷰가 성공적으로 등록되었습니다!");
         } catch (err) {
@@ -191,7 +197,7 @@ const Review = () => {
             alert("로그인이 필요한 서비스입니다!");
         }
         console.log(userId);
-    }, [userId, guId, dongId, title, contents, satisfactionLevel]);
+    }, [userId, guId, dongId, title, content, satisfactionLevel]);
 
     const reviewSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -204,11 +210,12 @@ const Review = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get("https://server-git-dev-server-nine-lab.vercel.app/api/review")
+        axios
+            .get("https://server-git-dev-server-nine-lab.vercel.app/api/review")
             .then(res => {
                 setPosts(res.data);
                 setLoading(false);
-            })
+            });
     }, []);
 
     console.log(posts);
@@ -216,9 +223,9 @@ const Review = () => {
     // 지도 관련
     const [value, setValue] = React.useState(0);
     const [currentState, setCurrentState] = useState({
-                map: seoulMap,
+        map: seoulMap,
         center: [126.986, 37.561],
-        });
+    });
 
     return (
         <ErrorBoundary fallback={Error}>
@@ -235,7 +242,9 @@ const Review = () => {
                         <Posts posts={posts} loading={loading} />
                         <div>
                             {isOpenModal && (
-                                <ReviewModal onClickToggleModal={onClickToggleModal}>
+                                <ReviewModal
+                                    onClickToggleModal={onClickToggleModal}
+                                >
                                     <form onSubmit={reviewSubmit}>
                                         <S.page>
                                             <S.title>구 이름</S.title>
@@ -252,12 +261,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {guId
                                                     ? isGuIdVaild || (
-                                                        <div>
-                                                            {
-                                                                InvaildMessages.guId
-                                                            }
-                                                        </div>
-                                                    )
+                                                          <div>
+                                                              {
+                                                                  InvaildMessages.guId
+                                                              }
+                                                          </div>
+                                                      )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>동 이름</S.title>
@@ -274,12 +283,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {dongId
                                                     ? isDongIdVaild || (
-                                                        <div>
-                                                            {
-                                                                InvaildMessages.dongId
-                                                            }
-                                                        </div>
-                                                    )
+                                                          <div>
+                                                              {
+                                                                  InvaildMessages.dongId
+                                                              }
+                                                          </div>
+                                                      )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>제목</S.title>
@@ -296,12 +305,12 @@ const Review = () => {
                                             <S.reviewErrorWrap>
                                                 {title
                                                     ? isTitleVaild || (
-                                                            <div>
-                                                                {
-                                                                    InvaildMessages.title
-                                                                }
-                                                            </div>
-                                                        )
+                                                          <div>
+                                                              {
+                                                                  InvaildMessages.title
+                                                              }
+                                                          </div>
+                                                      )
                                                     : null}
                                             </S.reviewErrorWrap>
                                             <S.title>댓글</S.title>
@@ -309,10 +318,8 @@ const Review = () => {
                                                 <S.reviewInput
                                                     type="text"
                                                     required
-                                                    value={contents}                                                    
-                                                    onChange={
-                                                        checkItemChangeHandler
-                                                    }
+                                                    value={content}
+                                                    onChange={checkContent}
                                                     ref={contentsRef}
                                                 />
                                             </S.reviewContentWrap>
