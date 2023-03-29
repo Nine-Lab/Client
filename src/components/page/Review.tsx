@@ -15,7 +15,7 @@ import ReviewModal from "../review/ReviewModal";
 import Posts from "../review/Posts";
 import SimpleMap from "components/map/Map";
 import seoulMap from "../../api/data/seoul.json";
-r;
+
 import ErrorBoundary from "../common/ErrorBoundary";
 import Error from "../common/Error";
 import { BackGroundContainer } from "./Main";

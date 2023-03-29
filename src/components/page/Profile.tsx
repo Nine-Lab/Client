@@ -10,12 +10,11 @@ const Profile = () => {
     return (
         <ErrorBoundary fallback={Error}>
             <div>
-                <Info />
+                {/* <Info />
                 <Admin />
-                <Leave />
+                <Leave /> */}
             </div>
         </ErrorBoundary>
-        
     );
 };
 
