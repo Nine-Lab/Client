@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
-import ChartCotainer from "../chart/chartData";
+import ChartCotainer from "../chart/ChartData";
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -34,8 +34,8 @@ const CarouselSection2 = () => {
                             gutterBottom
                             sx={{ margin: "0" }}
                         >
-                            서울살이, <br />
-                            얼마나 만족하시나요?
+                            서울, <br />
+                            미세먼지 어때?
                         </Typography>
 
                         <br />

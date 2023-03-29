@@ -15,6 +15,7 @@
         "@types/faker": "^6.6.9",
         "@types/jest": "^29.4.4",
         "@types/js-cookie": "^3.0.3",
+        "@types/jwt-decode": "^3.1.0",
         "@types/node": "^18.15.3",
         "@types/react": "^18.0.28",
         "@types/react-chartjs-2": "^2.5.7",
@@ -29,6 +30,7 @@
         "cookie-universal": "^2.2.2",
         "faker": "^6.6.6",
         "js-cookie": "^3.0.1",
+        "jwt-decode": "^3.1.2",
         "react": "^18.2.0",
         "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.2.0",
@@ -39,12 +41,13 @@
         "react-simple-maps": "^3.0.0",
         "react-simple-south-korea-map-chart": "^1.1.1",
         "react-slick": "^0.29.0",
-        "react-tooltip": "^5.10.1",
+        "react-tooltip": "^4.2.21",
         "slick-carousel": "^1.8.1",
         "styled-components": "^5.3.8",
         "tslint-config-airbnb": "^5.11.2",
         "typescript": "^4.9.5",
-        "web-vitals": "^2.1.4"
+        "web-vitals": "^2.1.4",
+        "yarn": "^1.22.19"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -58,6 +61,7 @@
             "react-app/jest"
         ]
     },
+    "proxy": "http://localhost:8001/",
     "browserslist": {
         "production": [
             ">0.2%",
@@ -72,6 +76,7 @@
     },
     "devDependencies": {
         "@types/faker": "5.5.9",
+        "@types/js-cookie": "^3.0.3",
         "@types/react-slick": "^0.23.10",
         "@types/styled-components": "^5.1.26",
         "@typescript-eslint/eslint-plugin": "^5.55.0",
@@ -81,6 +86,5 @@
         "styled-components": "^5.3.8",
         "styled-reset": "^4.4.5",
         "ts-node": "^10.9.1"
-    },
-    "proxy": "http://localhost:8001/"
+    }
 }

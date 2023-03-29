@@ -16,19 +16,19 @@ export const page = styled.div`
   flex-direction: column;
 `;
 
-/* 로그인 글 */
+/* 로그인,회원가입 타이틀 텍스트 */
 export const titleWrap = styled.div`
     text-align: center;
-    margin-top: 87px;
+    margin-top: 10px;
     font-size: 26px;
     font-weight: bold;
     color: #262626;
 `;
 
-/* 타이틀 */
+/* 리뷰 타이틀 */
 export const title = styled.div`
   text-align: left;
-  margin-top: 100px;
+  margin-top: 70px;
   font-size: 18px;
   font-weight: bold;
   color: #262626;
@@ -40,6 +40,7 @@ export const contentWrap = styled.div`
 `;
 /* 이메일주소, 비밀번호 글자 */
 export const inputTitle = styled.div`
+  text-align: left;
   font-size: 12px;
   font-weight: 600;
   color: #262626;
@@ -71,19 +72,14 @@ export const reviewInputWrap = styled.div`
   width: 300px;
   right: 10px;
   margin-left: 100px;
-  margin-top: -33px;
+  margin-top: -36px;
   background-color: white;
   border: 1px solid #e2e0e0;
 `
 
 /* 리뷰 모달용 인풋 양식 */
 export const reviewInput = styled(Input)`
-  width: 100%;
-  outline: none;
-  border: none;
-  height: 17px;
-  font-size: 14px;
-  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
 `;
 
 /* 리뷰 내용 양식 */
@@ -91,14 +87,15 @@ export const reviewContent = styled.textarea`
   width: 100%;
   height: 500px;
   outline: none;
-  border: none;
+  border: 1px black;
   height: 17px;
   font-size: 14px;
   font-weight: 400;
   line-height: 27px;
     /* padding: 5px 0; */
   resize: none;
-  border: none;
+  border: 1px;
+  font-family: 'Roboto', sans-serif;
 `;
 export const reviewContentWrap = styled.div`
   display: flex;
@@ -148,7 +145,7 @@ export const reviewButton  = styled.button`
   background-color: #81c6e8;
   color: white;
   position: absolute;
-  bottom: 50px;
+  bottom: 40px;
   left: 70px;
   cursor: pointer;
 
@@ -167,3 +164,16 @@ export const errorMessageWrap = styled.div`
 export const LoginForm = styled.form`
   width: 400px;
 `;
+
+export const reviewErrorWrap = styled.div`
+  padding-top: 5px;
+  margin-left: -100px;
+  color: #ef0000;
+  font-size: 12px;
+`
+
+/* 안내 문구 */
+export const satisfactionLevelGuide = styled.div`
+  padding-top: 5px;
+  font-size: 12px;
+`

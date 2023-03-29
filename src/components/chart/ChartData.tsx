@@ -60,7 +60,7 @@ const options = {
         },
         title: {
             display: true,
-            text: "서울시 미세먼지 평균",
+            text: "서울시 미세먼지",
             font: {
                 size: 18,
             },

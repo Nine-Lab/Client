@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
-import ChartCotainer from "../chart/chartData3";
+import ChartCotainer from "../chart/ChartData3";
 
 const CarouselContainer = styled("div")`
     width: 100%;
@@ -26,9 +26,9 @@ const CarouselSection4 = () => {
                             margin: "auto",
                         }}
                     >
-                        <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
+                        {/* <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
                             생활 만족도 데이터로 살펴보는
-                        </Typography>
+                        </Typography> */}
                         <Typography
                             align="left"
                             variant="h3"

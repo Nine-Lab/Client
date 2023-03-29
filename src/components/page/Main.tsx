@@ -8,10 +8,11 @@ export const BackGroundContainer = styled("div")`
     width: 100%;
     display: flex;
     height: calc(100vh);
+    padding-bottom: 2rem;
     /* 미세먼지 */
-    background: #2980b9;
+    /* background: #2980b9;
     background: -webkit-linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
-    background: linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
+    background: linear-gradient(to top, #ffffff, #6dd5fa, #2980b9); */
     /* 침수 */
     /* background: #0f0c29;
     background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
