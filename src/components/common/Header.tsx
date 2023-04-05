@@ -11,7 +11,6 @@ const HomeIcon = createSvgIcon(
     "Home",
 );
 export default function Header() {
-    const [isSignupOpen, setIsSignupOpen] = useState<boolean>(false);
     const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
@@ -23,9 +22,6 @@ export default function Header() {
         }
     }, []);
 
-    const handleClickSignup = () => {
-        setIsSignupOpen(!isSignupOpen);
-    };
 
     const handleClickLogin = () => {
         setIsLoginOpen(!isLoginOpen);
@@ -51,28 +47,25 @@ export default function Header() {
                 {isLoggedIn ? (
                     <>
                         <Button onClick={logoutSubmit}>LOGOUT</Button>
-                        <Button href="/profile">My Page</Button>
+                        <Button href="/mypage">My Page</Button>
                     </>
                 ) : (
                     <>
-                        <Button onClick={() => handleClickLogin()}>
-                            LOGIN
+                        <Button>
+                            <Login />
                         </Button>
-                        <Button onClick={() => handleClickSignup()}>
-                            JOIN
+                        <Button>
+                            <SignUp />
                         </Button>
                     </>
                 )}
                 <Button href="/review">Review</Button>
                 <Button href="/hood">Hood</Button>
-                <SignUp
-                    isSignupOpen={isSignupOpen}
-                    onCloseModal={() => setIsSignupOpen(false)}
-                />
-                <Login
+                {/* <Login
                     isLoginOpen={isLoginOpen}
                     onCloseModal={() => setIsLoginOpen(false)}
-                />
+                /> */}
+                
             </div>
         </>
     );
