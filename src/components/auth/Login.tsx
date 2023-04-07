@@ -33,7 +33,7 @@ if (token) {
     const { userId } = decoded;
     return userId;
 }
-return null; // 토큰을 찾을 수 없으면 null을 반환
+return null; // 토큰을 찾을 수 없으면 null을 반환//
 };
 
 export default function LoginModal() {
