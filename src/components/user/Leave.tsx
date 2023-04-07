@@ -1,30 +1,79 @@
-import React from "react";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Backdrop from '@mui/material/Backdrop';
 import styled from "styled-components";
-import ErrorBoundary from "../common/ErrorBoundary";
-import Error from "../common/Error";
-import { useState, useCallback } from "react";
-import Modal from "../auth/Modal";
-import * as S from "../auth/Styled";
-import Cookies from "js-cookie";
 
-export const Title = styled.div`
+export default function LeaveModal() {
+    const [isOpenModal, setOpen] = React.useState(false);
+  const handleLeaveOpen = () => setOpen(true);
+  const handleInfoClose = () => {setOpen(false);}
+
+    return (
+    <div>
+        <div>
+            <Button onClick={handleLeaveOpen} >
+                <InfoLogo src="../../Leave_logo.png" alt="회원탈퇴"/>
+            </Button>
+        </div>
+        <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={isOpenModal}
+            onClose={handleInfoClose}
+            closeAfterTransition
+            slots={{ backdrop: Backdrop }}
+            slotProps={{
+            backdrop: {
+                timeout: 500,
+            },
+        }}>
+        <Fade in={isOpenModal}>
+        <Box sx={style}>
+            <Title>회원탈퇴</Title>
+            <ContentWrap>
+                <P>
+                    ✓ 탈퇴시 작성한 리뷰를 제외한 모든 정보가 삭제됩니다.
+                </P>
+                <P style={{ marginTop: "10px" }}>
+                    ✓ 한번 삭제된 정보는 복구가 불가능합니다.
+                </P>
+                <P style={{ marginTop: "10px" }}>
+                    ✓ 탈퇴하신 아이디로는 다시 회원가입을 하실 수 없습니다. (다른 아이디로 가입)
+                </P>
+            </ContentWrap>
+            <BottomButton style={{ marginTop: "80px", marginBottom: "-40px"}}>탈퇴하기</BottomButton>
+        </Box>
+        </Fade>
+        </Modal>
+    </div>
+    );
+}
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 8,
+};
+
+const Title = styled.div`
     text-align: center;
-    margin-top: 87px;
+    margin-top: 10px;
     font-size: 26px;
     font-weight: bold;
     color: #262626;
+    margin-top: 0%;
 `;
-export const P = styled.p`
-    font-size: 12px;
-    font-weight: 600;
-    color: #262626;
-`;
-const Box = styled.button`
-    font-size: 12px;
-    font-weight: 600;
-    color: #262626;
-`;
-const Button = styled.button`
+
+const BottomButton = styled.button`
     width: 100%;
     height: 48px;
     border: none;
@@ -33,145 +82,37 @@ const Button = styled.button`
     background-color: #81c6e8;
     color: white;
     margin-bottom: 16px;
-    margin-top: 200px;
     cursor: pointer;
 `;
 
-export const Page = styled.div`
-    position: absolute;
-    top: 10%;
-    bottom: 10%;
-    width: 100%;
-    max-width: 500px;
-    padding: 0 50px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background-color: #f7f7f7;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    /* border: 2px solid #000 */
+const ContentWrap = styled.div`
+    margin-top: 26px;
+    flex: 1;
 `;
 
-const DialogButton = styled.button`
-    width: 160px;
-    height: 48px;
-    color: black;
-    background-color: white;
-    font-size: 1.4rem;
-    font-weight: 400;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    margin: 10px 400px;
+const P = styled.div`
+    font-size: 14px;
+    color: #262626;
+    font-weight: bold;
+`
 
-    &:hover {
-        transform: translateY(-1px);
-    }
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  /* justify-content: flex-end; */
+  margin: 30em auto;
+  position: absolute;
+  width: 100%;
+  max-width: 800px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  overflow: hidden;
+  display: flex;
+  /* flex-direction: row; */
 `;
 
-export const MEMBER_TYPE = {
-    VISITOR: "Visitor",
-    MEMBER: "Member",
-    ADMIN: "Admin",
-};
-
-export default function Leave() {
-    //모달
-    const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
-    const onClickToggleModal = useCallback(() => {
-        setOpenModal(!isOpenModal);
-    }, [isOpenModal]);
-
-    // //API
-
-    // const [email, setEmail] = useState<string>("");
-    //   const [password, setPassword] = useState<string>("");
-
-    //   //****** 로그인 API
-    //   const loginAPI = useCallback(async (email: string, password: string) => {
-    //       try {
-    //           console.log("성공");
-    //           const response = await axios.post(
-    //               "https://shiny-shea-devhwann.koyeb.app/api/users/login",
-    //               { email, password },
-    //           );
-    //           const { token } = response.data;
-    //           Cookies.set("token", token, { httpOnly: true });
-    //           setOpenModal(false);
-    //       } catch (err) {
-    //           console.log("실패");
-    //           alert("이메일 또는 비밀번호를 확인해주세요.");
-    //       }
-    //   }, []);
-
-    // const useConfirm = ( message = null, onConfirm, onCancel) => {
-    //   if (!onConfirm || typeof onConfirm !== 'function') {
-    //     return;
-    //   }
-    //   if (onCancel && typeof onCancel !== 'function') {
-    //     return;
-    //   }
-
-    //   const confirmAction = () => {
-    //     if (window.confirm(message)) {
-    //       onConfirm();
-    //     } else {
-    //       onCancel();
-    //     }
-    //   };
-
-    //   return confirmAction;
-    // };
-    // const deleteConfirm = async () => {
-    //   const userRepo = Repositories[RepositoryNames.USER];
-    //   const userToken = localStorage.getItem('userToken');
-    //   await userRepo.deleteUser(userToken);
-    //   // setIsLogin(false);
-    //   setMode(MEMBER_TYPE.VISITOR);
-    //   localStorage.clear();
-
-    //   window.alert('완료!');
-    //   window.location.href = ' / ';
-    // };
-    // const cancelConfirm = () => {
-    //   history.back();
-    // };
-    // const confirmDelete = useConfirm(
-    //   '정말 탈퇴하시겠습니까?',
-    //   deleteConfirm,
-    //   cancelConfirm,
-    // );
-
-    return (
-        <ErrorBoundary fallback={Error}>
-            {isOpenModal && (
-                <Modal onClickToggleModal={onClickToggleModal}>
-                    <form>
-                        <S.page>
-                            <S.contentWrap>
-                                {/* <S.P>✓ 탈퇴시 고객 정보가 삭제되며 상품권 구매 내역 확인, 이벤트 참여가
-          불가합니다.</S.P>
-          <S.P>✓ 사용하고 계신 아이디는 탈퇴할 경우 재사용 및 복구가 불가능합니다.</S.P>
-          <S.P>✓ 탈퇴하신 아이디로는 다시 회원가입을 하실 수 없습니다.(다른 아이디로
-          가입)</S.P> */}
-                            </S.contentWrap>
-                            <S.bottomButton onClick={onClickToggleModal}>
-                                탈퇴하기
-                            </S.bottomButton>
-                        </S.page>
-                    </form>
-                </Modal>
-            )}
-            <DialogButton onClick={onClickToggleModal}>
-                <img
-                    src="../../Leave_logo.png"
-                    alt="asd"
-                    width={400}
-                    height={300}
-                />
-            </DialogButton>
-        </ErrorBoundary>
-    );
-}
+const InfoLogo = styled.img`
+  /* margin-left: 100%; */
+  width: 300px;
+  height: auto;
+`;

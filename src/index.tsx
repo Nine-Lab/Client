@@ -15,7 +15,7 @@ import Loading from "./components/common/Loading";
 // });
 
 const App = lazy(() => import("./components/page/Main"));
-const Profile = lazy(() => import("./components/page/Profile"));
+const Mypage = lazy(() => import("./components/page/Profile"));
 const Hood = lazy(() => import("./components/page/Hood"));
 const Review = lazy(() => import("./components/page/Review"));
 
@@ -29,8 +29,8 @@ const router = createBrowserRouter([
         element: <Hood />,
     },
     {
-        path: "/profile",
-        element: <Profile />,
+        path: "/mypage",
+        element: <Mypage />,
     },
     {
         path: "/Review",

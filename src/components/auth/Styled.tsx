@@ -122,7 +122,15 @@ export const bottomButton = styled.button`
   color: white;
   margin-bottom: 16px;
   cursor: pointer;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)}; /* 비활성화 시 opacity 값 변경 */
+  &:hover {
+    background-color: #81c6e8;
+  }
+  &:active {
+    background-color: #81c6e8;
+  }
 `;
+
 export const headerButton = styled.button`
   height: 48px;
   border: none;
