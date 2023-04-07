@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
@@ -8,32 +7,39 @@ import styled from "styled-components";
 
 export default function LeaveModal() {
     const [isOpenModal, setOpen] = React.useState(false);
-  const handleLeaveOpen = () => setOpen(true);
-  const handleInfoClose = () => {setOpen(false);}
+    const handleLeaveOpen = () => setOpen(true);
+    const handleLeaveClose = () => setOpen(false);
+
+    const handleLeaveConfirm = () => {
+    // TODO: 탈퇴 처리 로직 구현
+    alert("탈퇴가 완료되었습니다.");
+    handleLeaveClose();
+    }
 
     return (
-    <div>
         <div>
-            <Button onClick={handleLeaveOpen} >
-                <InfoLogo src="../../Leave_logo.png" alt="회원탈퇴"/>
+        <div>
+            <Button onClick={handleLeaveOpen} style={{ marginTop: "100px" }}>
+            <InfoLogo src="../../Leave_logo.png" alt="회원탈퇴"/>
             </Button>
         </div>
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             open={isOpenModal}
-            onClose={handleInfoClose}
+            onClose={handleLeaveClose}
             closeAfterTransition
             slots={{ backdrop: Backdrop }}
             slotProps={{
             backdrop: {
                 timeout: 500,
             },
-        }}>
-        <Fade in={isOpenModal}>
-        <Box sx={style}>
-            <Title>회원탈퇴</Title>
-            <ContentWrap>
+            }}
+        >
+            <Fade in={isOpenModal}>
+            <Box sx={style}>
+                <Title>회원탈퇴</Title>
+                <ContentWrap>
                 <P>
                     ✓ 탈퇴시 작성한 리뷰를 제외한 모든 정보가 삭제됩니다.
                 </P>
@@ -43,12 +49,15 @@ export default function LeaveModal() {
                 <P style={{ marginTop: "10px" }}>
                     ✓ 탈퇴하신 아이디로는 다시 회원가입을 하실 수 없습니다. (다른 아이디로 가입)
                 </P>
-            </ContentWrap>
-            <BottomButton style={{ marginTop: "80px", marginBottom: "-40px"}}>탈퇴하기</BottomButton>
-        </Box>
-        </Fade>
+                </ContentWrap>
+                <BottomButtonWrapper>
+                <BottomButton1 onClick={handleLeaveClose}>돌아가기</BottomButton1>
+                <BottomButton2 onClick={handleLeaveConfirm}>탈퇴하기</BottomButton2>
+                </BottomButtonWrapper>
+            </Box>
+            </Fade>
         </Modal>
-    </div>
+        </div>
     );
 }
 
@@ -73,13 +82,24 @@ const Title = styled.div`
     margin-top: 0%;
 `;
 
-const BottomButton = styled.button`
+const BottomButton1 = styled.button`
     width: 100%;
     height: 48px;
     border: none;
     font-weight: bold;
     border-radius: 64px;
     background-color: #81c6e8;
+    color: white;
+    margin-bottom: 16px;
+    cursor: pointer;
+`;
+const BottomButton2 = styled.button`
+    width: 100%;
+    height: 48px;
+    border: none;
+    font-weight: bold;
+    border-radius: 64px;
+    background-color: #ff0000;
     color: white;
     margin-bottom: 16px;
     cursor: pointer;
@@ -97,22 +117,24 @@ const P = styled.div`
 `
 
 const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  /* justify-content: flex-end; */
-  margin: 30em auto;
-  position: absolute;
-  width: 100%;
-  max-width: 800px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  overflow: hidden;
-  display: flex;
-  /* flex-direction: row; */
+    display: flex;
+    justify-content: center;
+    justify-content: flex-end;
+    margin: 30em auto;
+    width: 100%;
+    max-width: 800px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    overflow: hidden;
+    flex-direction: row;
 `;
 
 const InfoLogo = styled.img`
-  /* margin-left: 100%; */
-  width: 300px;
-  height: auto;
+    width: 180px;
+    height: auto;
+`;
+const BottomButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
 `;
