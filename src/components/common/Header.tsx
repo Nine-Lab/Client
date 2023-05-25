@@ -11,8 +11,6 @@ const HomeIcon = createSvgIcon(
     "Home",
 );
 export default function Header() {
-    const [isSignupOpen, setIsSignupOpen] = useState<boolean>(false);
-    const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
@@ -22,14 +20,6 @@ export default function Header() {
             setIsLoggedIn(false);
         }
     }, []);
-
-    const handleClickSignup = () => {
-        setIsSignupOpen(!isSignupOpen);
-    };
-
-    const handleClickLogin = () => {
-        setIsLoginOpen(!isLoginOpen);
-    };
 
     const logoutSubmit = () => {
         Cookies.remove("token");
@@ -41,38 +31,27 @@ export default function Header() {
 
     return (
         <>
-            <div
-                style={{ textAlign: "right", marginRight: "3rem" }}
-                className="header"
-            >
+            <div style={{ textAlign: "right", marginRight: "3rem" }} className="header">
                 <Button href="/">
                     <HomeIcon />
                 </Button>
                 {isLoggedIn ? (
                     <>
                         <Button onClick={logoutSubmit}>LOGOUT</Button>
-                        <Button href="/profile">My Page</Button>
+                        <Button href="/mypage">My Page</Button>
                     </>
                 ) : (
                     <>
-                        <Button onClick={() => handleClickLogin()}>
-                            LOGIN
+                        <Button>
+                            <Login />
                         </Button>
-                        <Button onClick={() => handleClickSignup()}>
-                            JOIN
+                        <Button>
+                            <SignUp />
                         </Button>
                     </>
                 )}
                 <Button href="/review">Review</Button>
                 <Button href="/hood">Hood</Button>
-                <SignUp
-                    isSignupOpen={isSignupOpen}
-                    onCloseModal={() => setIsSignupOpen(false)}
-                />
-                <Login
-                    isLoginOpen={isLoginOpen}
-                    onCloseModal={() => setIsLoginOpen(false)}
-                />
             </div>
         </>
     );
