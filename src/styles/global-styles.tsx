@@ -11,9 +11,9 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'NanumSquare', sans-serif;
         transition: color,background 0.25s ease-in;        
         overflow-y:hidden;
-        background: #2980b9;
-    background: -webkit-linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
-    background: linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
+        /* background: #2980b9; */
+        background: -webkit-linear-gradient(to top, #ffffff, #6dd5fa, #2980b9) !important;
+        background: linear-gradient(to top, #ffffff, #6dd5fa, #2980b9)!important;
     }
 
     html,body {
