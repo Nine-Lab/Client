@@ -41,6 +41,7 @@
         "react-simple-maps": "^3.0.0",
         "react-simple-south-korea-map-chart": "^1.1.1",
         "react-slick": "^0.29.0",
+        "react-spinners": "^0.13.8",
         "react-tooltip": "^4.2.21",
         "slick-carousel": "^1.8.1",
         "styled-components": "^5.3.8",
@@ -61,7 +62,6 @@
             "react-app/jest"
         ]
     },
-    "proxy": "http://localhost:8001/",
     "browserslist": {
         "production": [
             ">0.2%",

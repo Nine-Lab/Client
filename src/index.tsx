@@ -4,6 +4,15 @@ import { GlobalStyle } from "./styles/global-styles";
 import Header from "./components/common/Header";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import Loading from "./components/common/Loading";
+
+// const About = lazy(() => {
+//     return Promise.all([
+//         import('../pages/About'),
+//         new Promise(resolve => setTimeout(resolve, 180000))
+//     ])
+//     .then(([moduleExports]) => moduleExports);
+// });
 
 const App = lazy(() => import("./components/page/Main"));
 const Profile = lazy(() => import("./components/page/Profile"));
@@ -34,9 +43,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-         <Header />
-        <Suspense fallback={<div>loading...</div>}>
-            <GlobalStyle />
+        <GlobalStyle />
+
+        <Suspense fallback={<Loading />}>
+            <Header />
             <RouterProvider router={router} />
         </Suspense>
     </React.StrictMode>,
